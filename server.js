@@ -1,11 +1,11 @@
 import express from  'express'
 import ViteExpress from 'vite-express'
 
-const app = express()
 
-const todos = [
-  { name:'buy groceries', completed:false }
-]
+
+// const todos = [
+//   { name:'buy groceries', completed:false }
+// ]
 
 app.use( express.json() )
 
