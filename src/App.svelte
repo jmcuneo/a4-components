@@ -4,6 +4,7 @@
   import viteLogo from '/vite.svg'
   import Counter from './lib/Counter.svelte'
 
+  let editMode = -1;
 
   let taskValue = "";
   let classValue = "";
@@ -28,20 +29,29 @@
 
 
   const addTask = function( e ) {
-    let json = {_id: -1, task: taskValue, class: classValue, duedate: duedateValue, importance: importanceValue, priority: 0};
+    let json = {_id: editMode, task: taskValue, class: classValue, duedate: duedateValue, importance: importanceValue, priority: 0}
     const body = JSON.stringify( json );
-    promise = fetch( "/add", {
-      method:"POST",
-      body
-    }).then( response => response.json())
+    if(editMode > 0) {
+      promise = fetch( "/edit", {
+        method:"POST",
+        body
+      }).then( response => response.json())
+    } else {
+      promise = fetch( "/add", {
+        method:"POST",
+        body
+      }).then( response => response.json())
+    }
+
   }
 
-  const editTask = function( e ) {
-    fetch( '/change', {
-      method:'POST',
-      body: JSON.stringify({ name:e.target.getAttribute('todo'), completed:e.target.checked }),
-      headers: { 'Content-Type': 'application/json' }
-    })
+  const editTask = function( data ) {
+    taskValue = data.task;
+    classValue = data.class;
+    duedateValue = data.duedate;
+    importanceValue = data.importance;
+
+    editMode = data._id;
   }
 
 
@@ -158,7 +168,7 @@
         <td>{taskObj.importance}</td>
         <td>{taskObj.priority}</td>
         <td>
-          <button type="button" class="button" value="Edit">Edit</button>
+          <button type="button" class="button" value="Edit" on:click={() => editTask(taskObj)}>Edit</button>
           <button type="button" class="button" value="Delete" on:click={() => deleteTask(taskObj)}>Delete</button>
         </td>
       </tr>

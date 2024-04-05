@@ -61,29 +61,24 @@ app.post( '/delete', function( req,res ) {
     res.writeHead( 200, "OK", {"Content-Type": "text/plain" });
     res.end(JSON.stringify(taskData));
   })
-
-
-
-
-
-
-
-
-
-
-
-
-  // const idx = todos.findIndex( v => v.name === req.body.name )
-  // todos[ idx ].completed = req.body.completed
-  
-  // res.sendStatus( 200 )
 })
 
-app.post( '/change', function( req,res ) {
-  const idx = todos.findIndex( v => v.name === req.body.name )
-  todos[ idx ].completed = req.body.completed
-  
-  res.sendStatus( 200 )
+
+
+app.post( '/edit', function( req,res ) {
+  let dataString = ""
+  req.on( "data", function( data ) {
+      dataString += data 
+  })
+
+  req.on( "end", function() {
+    let taskObject = JSON.parse( dataString );
+    determinePriority(taskObject);
+    // Update object
+    taskData[determineTaskIndex(taskObject)] = taskObject;
+    res.writeHead( 200, "OK", {"Content-Type": "text/plain" });
+    res.end(JSON.stringify(taskData));
+  })
 })
 
 
