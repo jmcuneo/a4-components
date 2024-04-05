@@ -49,10 +49,34 @@ app.post( '/add', ( req,res ) => {
 
 
 app.post( '/delete', function( req,res ) {
-  const idx = todos.findIndex( v => v.name === req.body.name )
-  todos[ idx ].completed = req.body.completed
+  let dataString = ""
+  req.on( "data", function( data ) {
+      dataString += data 
+  })
+
+  req.on( "end", function() {
+    let taskObj = JSON.parse( dataString );
+
+    taskData.splice(determineTaskIndex(taskObj), 1);
+    res.writeHead( 200, "OK", {"Content-Type": "text/plain" });
+    res.end(JSON.stringify(taskData));
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+  // const idx = todos.findIndex( v => v.name === req.body.name )
+  // todos[ idx ].completed = req.body.completed
   
-  res.sendStatus( 200 )
+  // res.sendStatus( 200 )
 })
 
 app.post( '/change', function( req,res ) {
@@ -68,6 +92,19 @@ app.post( '/change', function( req,res ) {
 
 
 
+// Determine the index of the task in the array
+function determineTaskIndex(taskObject) {
+  let foundTask = false;
+  let i = 0;
+  while(foundTask === false && i < taskData.length) {
+    if(taskData[i]._id === taskObject._id) {
+      foundTask = true;
+      i--;
+    }
+    i++;
+  }
+  return i;
+}
 
 
 

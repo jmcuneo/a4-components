@@ -45,12 +45,13 @@
   }
 
 
-  const deleteTask = function( e ) {
-    fetch( '/delete', {
-      method:'POST',
-      body: JSON.stringify({ name:e.target.getAttribute('todo'), completed:e.target.checked }),
-      headers: { 'Content-Type': 'application/json' }
-    })
+  const deleteTask = function(data) {
+    const body = JSON.stringify(data);
+    fetch( "/delete", {
+      method:"POST",
+      body
+    }).then( response => response.json())
+    location.reload();
   }
 
   let promise = getTasks()
@@ -158,7 +159,7 @@
         <td>{taskObj.priority}</td>
         <td>
           <button type="button" class="button" value="Edit">Edit</button>
-          <button type="button" class="button" value="Delete">Delete</button>
+          <button type="button" class="button" value="Delete" on:click={() => deleteTask(taskObj)}>Delete</button>
         </td>
       </tr>
       {/each}
