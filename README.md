@@ -1,31 +1,8 @@
-Assignment 4 - Components
-===
+## Car Data App
+New A4 Link:
 
-For this assignment you will re-implement the client side portion of *either* A2 or A3 using either React or Svelte components. If you choose A3 you only need to use components for the data display / updating; you can leave your login UI as is.
+https://hanzalah416.github.io/a4-components/
 
-[Svelte Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.svelte.md)  
-[React Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.react.md)  
+Deployed on GitHub Pages for easy deployment.
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku, etc.). However, you must include all files in your GitHub repo so that the course staff can view them.
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a4-firstname-lastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a4-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a4-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+In this project, I re-implemented the client-side portion of my Assignment #2 (https://a2-hanzalahqamar.glitch.me/) using React components. I converted the existing HTML, CSS, and JavaScript code into reusable React components, such as CarForm, CarFormDialog, CarTable, and CarRow. The new technology, React, improved the development experience by providing a more organized and modular structure to the code, making it easier to manage and maintain. Overall, it made it so much easier to realize what files did what instead of looking through a very long html file or css file. I also used MaterialUI for styling, which made the CSS so much easier and straightforward because there were already prepackaged components included for forms and input boxes. I added a Pop-Up box to add new cars instead of a constantly rendered form, and also changed the styling and simplified editing car data that were already in the table due to react making it easier to do so. The server side portion was not implemented into A4 from A2 because of the assignment specifications, so instances dont stay in the website upon reload.
