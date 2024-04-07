@@ -1,6 +1,4 @@
 
-
-
 const submit = async function( event ) {
   if (confirm("Do you want to submit your name?")) {
     event.preventDefault()

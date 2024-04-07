@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,12 +14,24 @@ app.use(bodyParser.json());
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const session = require('express-session');
+// const { createServer: createViteServer } = require('vite');
+const ViteExpress = require('vite-express');
 
+// async function createServer() {
+//
+//         const viteServer = await createViteServer({
+//             server: { middlewareMode: 'ssr' },
+//         });
+//         console.log("Server created");
+//         app.use(viteServer.middlewares);
+// }
+//
+// createServer();
 
 //Database
 //connect to the DB
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@${process.env.DBHOST}/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -241,5 +254,5 @@ app.put('/update/:id', async (req, res) => {
                 return res.status(400).json({error: "Index out of bounds"});
             }
         });
-app.listen(3000);
+ViteExpress.listen(app,3000);
 
