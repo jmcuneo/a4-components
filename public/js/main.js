@@ -47,13 +47,7 @@ const logout = async function(event) {
 }
 
 
-
-
-
-
-
   window.onload = async function () {
-    await result();
     const btnAdd = document.getElementById("addCar");
     btnAdd.onclick = await add;
     const btnLogOut = document.getElementById('logout');

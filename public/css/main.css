@@ -1,23 +1,25 @@
 html{
-  zoom:1.5;
-  margin:30px;
+  zoom: 1.75;
 }
 .grid-container{
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+
 }
 #left{
   padding-left: 10px;
+  display: inline-block
 }
 #right{
   padding-right: 10px;
+  display: inline-block
 }
 
 body {
   background:black;
   color:white;
-  font-family: "Tahoma";
+  font-family: "Tahoma", serif;
 }
 
 h1{
@@ -50,8 +52,9 @@ input{
   color:black;
 }
 .backToLogin{
-  zoom:0.5;
+  zoom:0.75;
   margin: 10px;
+  float: right;
 }
 
 button{
@@ -65,7 +68,6 @@ p{
   border-radius: 5px;
   border: solid #55E6D8;
   padding: 7px;
-
 }
 
 table{
@@ -84,6 +86,4 @@ td {
   text-align: left;
   padding: 8px;
 }
-.backToLogin{
-  float: right;
-}
+
