@@ -18,23 +18,6 @@ const submit = async function( event ) {
 }
 
 
-const add = async function( event ) {
-  if(confirm("Do you want to add the data? Tips: the age will only show when year is a number")){
-    event.preventDefault()
-    const model = document.getElementById("model").value;
-    const year = document.getElementById("year").value;
-    const mpg = document.getElementById("mpg").value;
-    const newData = {model: model, year: year, mpg: mpg};
-    await fetch("/add", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newData)
-    }).then(() => {
-      location.reload();
-  })
-}}
 
 const logout = async function(event) {
   window.location.href = '/index.html'
@@ -48,8 +31,6 @@ const logout = async function(event) {
 
 
   window.onload = async function () {
-    const btnAdd = document.getElementById("addCar");
-    btnAdd.onclick = await add;
     const btnLogOut = document.getElementById('logout');
     btnLogOut.onclick = await logout;
   }

@@ -24,6 +24,24 @@ const App = () =>{
         const mpg = document.getElementById("mpg").value;
         return {model: model, year: year, mpg: mpg};
     }
+
+    const handleAdd = async function( event ) {
+        if(confirm("Do you want to add the data? Tips: the age will only show when year is a number")){
+            try{
+                const response = await fetch("/add", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newData())
+                });
+                if(response.ok){
+                    await fetchData();
+                }
+            }catch(error){
+                console.log('Error Adding Data', error)
+            }
+        }}
     const handleUpdate = async(index, newData) => {
         if (confirm("Do you want to overwrite the old data with new data? Tips: the age will only show when year is a number")) {
             try {
@@ -52,7 +70,7 @@ const App = () =>{
                     body: JSON.stringify({index: index})
                 });
                 if (response.ok) {
-                    fetchData()
+                    await fetchData()
                 }
             } catch (error) {
                 console.log('Error Deleting Data', error);
@@ -87,22 +105,41 @@ const App = () =>{
         );
     }
 
-    return(
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Model</th>
-                            <th>Year</th>
-                            <th>MPG</th>
-                            <th>Age</th>
-                            <th>Delete</th>
-                            <th>Update</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {renderDataRows()}
-                        </tbody>
-                    </table>
+    return(<div className="grid-container">
+        <div className="right-content">
+            <form id="myForm">
+                <br/>
+                <b>Car Information</b><br/>
+                <input type="text" id="model" defaultValue="your car's model"/><br/>
+                <input type="text" id="year" defaultValue="your car's year"/><br/>
+                <input type="text" id="mpg" defaultValue="your car's mpg"/>
+                <input
+                    type="button"
+                    value="Add"
+                    onClick={() => handleAdd()}
+                />
+                <br/>
+            </form>
+        </div>
+        <div className="left-content">
+            <table>
+                <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>MPG</th>
+                    <th>Age</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+                </thead>
+                <tbody>
+                {renderDataRows()}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     );
 
 }
