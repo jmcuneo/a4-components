@@ -1,18 +1,10 @@
 <script>
-
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
-
   let editMode = -1;
 
   let taskValue = "";
   let classValue = "";
   let duedateValue = "";
   let importanceValue = "Yes";
-
-
-
 
   const getTasks = function() {
     const p = fetch( '/read', {
@@ -79,11 +71,6 @@
     }
   }
 </script>
-
-
-
-
-
 
 <main>
   <h1>Task List</h1>

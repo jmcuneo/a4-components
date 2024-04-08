@@ -3,12 +3,6 @@ import ViteExpress from 'vite-express'
 
 const app = express()
 
-
-
-const todos = [
-  { name:'buy groceries', completed:false }
-]
-
 const taskData = [
   {_id: 1, task: "Lab 1", class: "ECE 3849", duedate: "2024-04-05", importance: "Yes", priority: 1}
 ]
