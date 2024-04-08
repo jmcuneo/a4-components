@@ -1,0 +1,47 @@
+{
+  "name": "CarClub",
+  "version": "1.0.0",
+  "description": "Welcome to our Car Club",
+  "author": "Yuran Xue",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "start": "node server.improved.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mime": "^2.6.0",
+    "mongodb": "^6.5.0",
+    "passport": "^0.7.0",
+    "passport-github": "^1.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "vite-express": "^0.16.0",
+    "web-vitals": "^2.1.4",
+    "vite": "^4.2.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+html {
+  zoom: 1.5;
+  margin: 30px;
+}
+
+body {
+  background:black;
+  color:white;
+  font-family: "Tahoma", serif;
+}
+
+h1{
+  color: #7cfc00;
+  font-style: oblique;
+  font-family: "Century", sans-serif;
+  margin-bottom: 15px;
+
+}
+
+input{
+  background-color: #000000;
+  border-color: #FFFFFF;
+  color:#7cfc00;
+}
+#model{
+  margin-top: 6px;
+  margin-bottom: 3px;
+  background-color: #FFFFFF;
+  color:black;
+}
+#year{
+  margin-bottom: 3px;
+  background-color: #FFFFFF;
+  color:black;
+}
+#mpg{
+  background-color: #FFFFFF;
+  color:black;
+}
+
+
+button{
+  background-color: #000000;
+  border-color: #FFFFFF;
+  color:#7cfc00;
+}
+
+table{
+
+  border-color: white;
+  border-collapse: collapse;
+}
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
