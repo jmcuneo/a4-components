@@ -82,11 +82,6 @@ app.post( '/edit', function( req,res ) {
 })
 
 
-
-
-
-
-
 // Determine the index of the task in the array
 function determineTaskIndex(taskObject) {
   let foundTask = false;
@@ -116,12 +111,13 @@ function determinePriority(data) {
   // Calculate different in ms and then convert to days
   let diffDays = Math.floor(Math.abs(utcDate2 - utcDate1) / (1000 * 60 * 60 * 24));
 
+  console.log(diffDays);
   // Determine priority
-  if((diffDays <= 2 && data.importance === "Yes") || (diffDays <= 1 && data.importance === "No")) {
+  if((diffDays < 2 && data.importance === "Yes") || (diffDays < 1 && data.importance === "No")) {
     data.priority = 1;
-  } else if((diffDays <= 3 && data.importance === "Yes") || (diffDays <= 2 && data.importance === "No")) {
+  } else if((diffDays < 3 && data.importance === "Yes") || (diffDays < 2 && data.importance === "No")) {
     data.priority = 2;
-  } else if((diffDays <= 4 && data.importance === "Yes") || (diffDays <= 3 && data.importance === "No")) {
+  } else if((diffDays < 4 && data.importance === "Yes") || (diffDays < 3 && data.importance === "No")) {
     data.priority = 3;
   } else {
     data.priority = 4;
