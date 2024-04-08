@@ -1,3 +1,19 @@
+## Task List using Svelte
+
+https://a4-sethfrank.onrender.com
+
+For assignment 4, I adapted my assignment 2 project to utilize Svelte, as well as adding in some of elements from assignment 3. The main thing that was changed from assignment 2 was the use of Svelte for all of the client-end JavaScript. I also added in some of the elements from my assignment 3, including the use of Bootstrap for CSS styling and the calendar view and radios for adding a task.
+
+Overall, I feel like the use of Svelte improved the development experience since it eliminated much of the annoying aspects of linking certain aspects of the HTML and JavaScript files together. In particular, it was very annoying before having to create all the different HTML elements within my JavaScript file, especially for the table. However, by using Svelte, it made it a lot easier to do this since you can do all directly in HTML and just add in the Svelte components for all the elements that are subject to change. The each __ as __ block was very useful too since it acts like a for loop, making the code look a lot cleaner. I also found the way to access HTML elements very easy. Since I often have to access values from the HTML elements for my form, Svelte makes it very easy since you can bind an element value to a variable and just call that variable instead of calling a function.
+
+
+
+
+
+
+
+
+
 Assignment 4 - Components
 ===
 
@@ -22,13 +38,6 @@ Do the following to complete this assignment:
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
-
-your hosting link e.g. http://a4-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
 
 
 
@@ -36,59 +45,3 @@ Unlike previous assignments, this assignment will be solely graded on whether or
 
 
 
-
-
-
-
-
-
-
-
-
-# Svelte + Vite
-
-This template should help get you started developing with Svelte in Vite.
-
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
-
-## Need an official Svelte framework?
-
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
