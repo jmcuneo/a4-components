@@ -1,0 +1,18 @@
+div {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+button {
+    font-size: xx-large;
+}
+
+button:focus {
+    outline: 2px solid #dad4c2;
+    color: #dad4c2;
+    background-color: #13171f;
+}
