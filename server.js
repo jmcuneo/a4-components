@@ -191,6 +191,10 @@ app.get("/main.js", (req, res) => {
     res.sendFile("src/main.js");
 });
 
+app.get("/App.svelte", (req, res) => {
+    res.sendFile("src/App.svelte");
+});
+
 app.post("/add", express.json(), async (req, res) => {
     const data = req.body;
     console.log(data);
