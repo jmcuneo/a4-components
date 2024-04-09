@@ -1,6 +1,6 @@
 /*An element selector that allows me to style (width, margins, colors, fonts, flexbox, etc) the entire body element on the webpage*/
 body {
-  max-width: 550px;
+  max-width: 100%;
   margin: auto;
   padding: 10px;
   background: #A0E1FF;
