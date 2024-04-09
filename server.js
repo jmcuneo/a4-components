@@ -187,6 +187,10 @@ app.get("/appdata", async (req, res) => {
     await createTable(res, req.user._id);
 });
 
+app.get("/main.js", (req, res) => {
+    res.sendFile("main.js");
+});
+
 app.post("/add", express.json(), async (req, res) => {
     const data = req.body;
     console.log(data);
