@@ -38,6 +38,7 @@ const logger = (req, res, next) => {
 };
 
 app.use(express.static("public"));
+app.use(express.static("src"));
 app.set("views", "./");
 app.use(logger);
 app.use(express.json());
