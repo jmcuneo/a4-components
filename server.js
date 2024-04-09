@@ -80,8 +80,8 @@ passport.use(
     new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "https://a4-ellysgorodisch.onrender.com/auth/github/redirect"
-        //callbackURL: "/auth/github/redirect"
+        //callbackURL: "https://a4-ellysgorodisch.onrender.com/auth/github/redirect"
+        callbackURL: "/auth/github/redirect"
     }, async (accessToken, refreshToken, profile, done) => {
         console.log("Strategy:");
         await users.findOne({githubID: profile.id}).then(async (user) => {
@@ -185,14 +185,6 @@ app.get("/appdata", async (req, res) => {
     console.log("App Data:");
     console.log(req.user);
     await createTable(res, req.user._id);
-});
-
-app.get("/main.js", (req, res) => {
-    res.sendFile("src/main.js");
-});
-
-app.get("/App.svelte", (req, res) => {
-    res.sendFile("src/App.svelte");
 });
 
 app.post("/add", express.json(), async (req, res) => {
