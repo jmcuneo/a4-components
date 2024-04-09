@@ -188,7 +188,7 @@ app.get("/appdata", async (req, res) => {
 });
 
 app.get("/main.js", (req, res) => {
-    res.sendFile("main.js");
+    res.sendFile("src/main.js");
 });
 
 app.post("/add", express.json(), async (req, res) => {
