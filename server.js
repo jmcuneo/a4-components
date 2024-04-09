@@ -189,7 +189,7 @@ app.get("/appdata", async (req, res) => {
 
 app.get("/assets/nested-Dy8E001p.js", (req, res) => {
     res.setHeader('Content-Type', 'text/javascript');
-    res.sendFile("dist/assets/nested-Dy8E001p.js");
+    res.sendFile("assets/nested-Dy8E001p.js");
 });
 
 app.post("/add", express.json(), async (req, res) => {
