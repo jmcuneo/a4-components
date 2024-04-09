@@ -122,7 +122,7 @@ passport.deserializeUser((user, done) => {
 });
 
 app.get("/", (req, res) => {
-    return res.render("index.html");
+    return res.render("dist/index.html");
 });
 
 router.get("/github", passport.authenticate("github", {
@@ -149,7 +149,7 @@ app.use("/auth", router);
 
 app.get("/recipes", isUserAuthenticated, (req, res) => {
     console.log(req.user);
-    return res.render("recipes.html");
+    return res.render("dist/recipes.html");
 });
 
 async function createTable(res, userID) {
