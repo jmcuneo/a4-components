@@ -187,11 +187,11 @@ app.get("/appdata", async (req, res) => {
     await createTable(res, req.user._id);
 });
 
-app.get("/App.svelte", (req, res) => {
+/*app.get("/App.svelte", (req, res) => {
     console.log("DEBUG");
     res.setHeader('Content-Type', 'text/javascript');
     res.sendFile("src/App.svelte");
-});
+});*/
 
 app.post("/add", express.json(), async (req, res) => {
     const data = req.body;
