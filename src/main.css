@@ -3,6 +3,11 @@ body {
   background: #ade8e8;
 }
 
+html, div {
+
+  background: #ade8e8;
+}
+
 table
 {
   background: white;
@@ -48,6 +53,16 @@ button
 #idBlock
 {
   background: mediumpurple;
+}
+
+#dataButton
+{
+  background: limegreen
+}
+
+#deleteButton
+{
+  background: red
 }
 
 .openSans
