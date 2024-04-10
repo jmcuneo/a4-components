@@ -4,10 +4,8 @@ import { MongoClient, ObjectId } from 'mongodb'
 
 const app = express()
 
-app.use(express.static('public'))
-app.use(express.static('views'))
 app.use(express.json())
-
+app.use(bodyParser.json())
 import 'dotenv/config'
 
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
@@ -23,6 +21,7 @@ let userCollection
 })();
 
 import session from 'express-session';
+import bodyParser from 'body-parser'
 
 app.use(session({
   secret: process.env.EXPRESS_SECRET,
@@ -43,88 +42,7 @@ const handlePost = function (request, response) {
   });
 
   request.on("end", async function () {
-    let parsedJSON = JSON.parse(dataString);
-
-    const grade = parsedJSON.grade;
-    const numCredits = parseFloat(parsedJSON.credits);
-    const className = parsedJSON.class;
-
-    console.log("running handlePost")
-
-    const searchForID = await findDocumentById(collection, id);
-    if (searchForID) {
-      id = id + 10
-    }
-
-    let individualGradePoints = 0;
-
-    switch (grade) {
-      case 'A':
-        individualGradePoints = 4;
-        break;
-      case 'B':
-        individualGradePoints = 3;
-        break;
-      case 'C':
-        individualGradePoints = 2;
-        break;
-      case 'D':
-        individualGradePoints = 1;
-        break;
-      default:
-        individualGradePoints = 0;
-        break;
-    }
-
-    totalGradePoints = individualGradePoints * numCredits;
-    totalCredits = numCredits;
-
-    const existingData = await collection.find({}).toArray();
-
-    existingData.forEach((doc) => {
-      const existingGrade = doc.grade;
-      const existingNumCredits = doc.credits;
-
-      let existingIndividualGradePoints = 0;
-      switch (existingGrade) {
-        case 'A':
-          existingIndividualGradePoints = 4;
-          break;
-        case 'B':
-          existingIndividualGradePoints = 3;
-          break;
-        case 'C':
-          existingIndividualGradePoints = 2;
-          break;
-        case 'D':
-          existingIndividualGradePoints = 1;
-          break;
-        default:
-          existingIndividualGradePoints = 0;
-          break;
-      }
-
-      totalGradePoints += (existingIndividualGradePoints * existingNumCredits);
-      totalCredits += existingNumCredits;
-    });
-
-    gpa = (totalGradePoints / totalCredits).toFixed(2);
-
-    const insertToDB = await collection.insertOne({
-      "id": id,
-      "class": className,
-      "grade": grade,
-      "credits": numCredits,
-      "currentGPA": gpa
-    });
-
-    console.log(insertToDB);
-    console.log(gpa)
-
-    id++;
-
-    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
-    response.end(gpa.toString());
+   
   });
 };
 
@@ -250,8 +168,90 @@ function gradePointCalc(grade) {
   }
 }
 
-app.post('/calculate', (req, res) => {
-  handlePost(req, res)
+app.post('/calculate', async(req, response) => {
+  const parsedJSON = req.body
+  const grade = parsedJSON.grade;
+  const numCredits = parseFloat(parsedJSON.credits);
+  const className = parsedJSON.class;
+  console.log("running handlePost")
+
+  const searchForID = await findDocumentById(collection, id);
+  if (searchForID) {
+    id = id + 10
+  }
+
+  let individualGradePoints = 0;
+
+  switch (grade) {
+    case 'A':
+      individualGradePoints = 4;
+      break;
+    case 'B':
+      individualGradePoints = 3;
+      break;
+    case 'C':
+      individualGradePoints = 2;
+      break;
+    case 'D':
+      individualGradePoints = 1;
+      break;
+    default:
+      individualGradePoints = 0;
+      break;
+  }
+  
+  totalGradePoints = individualGradePoints * numCredits;
+  totalCredits = numCredits;
+  console.log(totalCredits)
+  console.log(totalGradePoints)
+  
+  const existingData = await collection.find({}).toArray();
+
+  existingData.forEach((doc) => {
+    const existingGrade = doc.grade;
+    const existingNumCredits = doc.credits;
+
+    let existingIndividualGradePoints = 0;
+    switch (existingGrade) {
+      case 'A':
+        existingIndividualGradePoints = 4;
+        break;
+      case 'B':
+        existingIndividualGradePoints = 3;
+        break;
+      case 'C':
+        existingIndividualGradePoints = 2;
+        break;
+      case 'D':
+        existingIndividualGradePoints = 1;
+        break;
+      default:
+        existingIndividualGradePoints = 0;
+        break;
+    }
+
+    totalGradePoints += (existingIndividualGradePoints * existingNumCredits);
+    totalCredits += existingNumCredits;
+  });
+  console.log(totalCredits)
+  console.log(totalGradePoints)
+  gpa = (totalGradePoints / totalCredits).toFixed(2);
+
+  const insertToDB = await collection.insertOne({
+    "id": id,
+    "class": className,
+    "grade": grade,
+    "credits": numCredits,
+    "currentGPA": gpa
+  });
+
+  console.log(insertToDB);
+  console.log(gpa)
+
+  id++;
+
+  response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+  response.end(gpa.toString());
 })
 
 app.delete('/calculate', (req, res) => {

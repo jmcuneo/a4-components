@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const TableComponent = () => {
-  const [appdata, setAppdata] = useState([]);
-
-  useEffect(() => {
-    fetch("/appdata")
-      .then((response) => response.json())
-      .then((data) => setAppdata(data));
-  });
+const TableComponent = (props) => {
+  const appdata = props.appdata
 
   return (
     <div>

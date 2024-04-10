@@ -10,6 +10,18 @@ function App() {
   const [name, setName] = useState("")
   const [appdata, setAppdata] = useState([]);
 
+  useEffect(() => {
+
+    fetch("/appdata", {
+      method: "GET",
+    }).then(response => response.json()).then(
+      json => {
+        setAppdata(json);
+      }
+    )
+
+  }, [])
+
   //ex///
   const calculate = async function (event) {
     const inputClass = document.querySelector("#class"),
@@ -20,6 +32,9 @@ function App() {
 
     const response = await fetch("/calculate", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body
     }).then(function (response) {
       return response.json();
@@ -37,6 +52,8 @@ function App() {
     });
 
     const appdata = await appdataResponse.json()
+    console.log("Appdata")
+    console.log(appdata)
     setAppdata(appdata);
 
     //updateTable(appdata)
