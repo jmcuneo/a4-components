@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from "react-router-dom"
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -8,7 +9,7 @@ function Login() {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
-const history = useHistory();
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,11 +34,13 @@ const history = useHistory();
       const data = await response.json();
       setMessage("Logging In...");
       const newUrl = `/main?text=${encodeURIComponent(data.username)}`;
-      history.push(newUrl);
+
+      console.log("Navigating");  
+      navigate("/delivery-log");
 
     } catch (error) {
       console.error('Login error:', error);
-      setMessage('Login failed. Please try again.');
+      setMessage('Login failed: ' + error);
     }
   };
 
@@ -46,18 +49,17 @@ const history = useHistory();
     setMessage('Registering');
 
     try {
-      const response = await fetch('/register', {
+      const response = await fetch('//localhost:3000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username,
-          password
+          username: usernameRef.current.value,
+          password: passwordRef.current.value
         })
       });
-      
-      const data = await response.json();
 
-      if (data.success) {
+      const data = await response.json();
+      if (response.ok) {
         setMessage('Registration successful! You can now log in.');
       } else {
         setMessage('Registration failed. Please try again: ' + data.message);
@@ -65,7 +67,7 @@ const history = useHistory();
 
     } catch (error) {
       console.error('Registration error:', error);
-      setMessage('An error occurred during registration');
+      setMessage('An error occurred during registration: ' + error);
     }
   };
 

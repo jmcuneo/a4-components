@@ -96,20 +96,21 @@ app.post('/register', async (req, res) => {
       password: hashedPassword
     });
 
+    let userCollection = await client.db("foodLogData").collection("users");
     // Check for existing username
-    const existingUser = await User.findOne({ username: req.body.username });
+    const existingUser = await userCollection.findOne({ username: req.body.username });
     if (existingUser) {
       return res.status(409).json({ success: false, message: "Username already exists" });
     }
 
-    const result = await newUser.save();
+    const result = await userCollection.insertOne(newUser);
     const userCollectionName = "foodLog_" + req.body.username;
     await client.db("foodLogData").createCollection(userCollectionName);
 
     res.json({ success: true, message: "Registration successful" });
   } catch (error) {
     console.error("Registration error:", error.message);
-    res.status(500).json({ success: false, message: "Registration error" });
+    res.status(500).json({ success: false, message: "Registration error:" });
   }
 });
 
