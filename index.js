@@ -22,7 +22,7 @@ var githubID = null;
 var username = null;
 var displayName = null;
 const cookieDuration = 72000000;
-const doDebug = true;
+const doDebug = false;
 
 // Backend
 
