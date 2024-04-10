@@ -153,31 +153,14 @@ app.get("/recipes", isUserAuthenticated, (req, res) => {
 });
 
 async function createTable(res, userID) {
-    /*let table = "<tr><th>Recipe Name</th><th>Meal</th><th>Prep Time</th><th>Cook Time</th><th>Total Time</th></tr>";
-    collection.find({}).toArray().then((data) => {
-        data = data.filter((a) => a.userID === userID);
-        let sort = {"Breakfast": 0, "Lunch": 1, "Dinner": 2};
-        data.sort((a, b) => sort[a.type] - sort[b.type]);
-        for (let d of data)
-            table += `<tr><td>${d.name}</td>
-                          <td>${d.type}</td>
-                          <td>${d.prep} min${d.prep == 1 ? "" : "s"}</td>
-                          <td>${d.cook} min${d.cook == 1 ? "" : "s"}</td>
-                          <td>${d.total} min${d.total == 1 ? "" : "s"}</td></tr>`;
-        res.end(table);
-    });*/
-    //console.log("createTable");
-    //console.log(userID);
     let test = await collection.find({
         userID: userID
     }).toArray().then((data) => {
         console.log(data);
         let sort = {"Breakfast": 0, "Lunch": 1, "Dinner": 2};
         data.sort((a, b) => sort[a.type] - sort[b.type]);
-        //console.log(data);
         return data;
     });
-    //console.log(test);
     res.json(test);
 };
 
@@ -186,12 +169,6 @@ app.get("/appdata", async (req, res) => {
     console.log(req.user);
     await createTable(res, req.user._id);
 });
-
-/*app.get("/App.svelte", (req, res) => {
-    console.log("DEBUG");
-    res.setHeader('Content-Type', 'text/javascript');
-    res.sendFile("src/App.svelte");
-});*/
 
 app.post("/add", express.json(), async (req, res) => {
     const data = req.body;
