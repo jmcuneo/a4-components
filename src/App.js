@@ -32,8 +32,8 @@ function render_page()
               <input type="text" id="playtime" placeholder="playtime" />
               <input type="text" id="date" placeholder="date (unique id)" />
 
-              <button id = "dataButton" onClick={button_test}>Add/Update</button>
-              <button id = "deleteButton" >Delete</button>
+              <button id = "dataButton" onClick={submit}>Add/Update</button>
+              <button id = "deleteButton" onClick={deleteData}>Delete</button>
             </form>
 
 
@@ -116,6 +116,50 @@ async function login(event) {
 }
 
 
+//Deletes a selected piece of User Data
+async function deleteData(event) {
+
+    event.preventDefault()
+    console.log("Deleting Data")
+
+    const input = document.querySelector( "#userinput"),
+        json = { username: user, password: userPassword, score: input[0].value, time: input[1].value, date: input[2].value },
+        body = JSON.stringify( json )
+
+    //let newData = { "username": input[0].value, "score": input[1].value, "time": input[2].value }
+
+    const response = await fetch("/delete_userdata", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(json)
+    })
+
+    document.querySelector("#loginButton").click()
+
+}
+
+async function submit(event) {
+
+    event.preventDefault()
+
+    const input = document.querySelector( "#userinput"),
+        json = { username: user, password: userPassword, score: input[0].value, time: input[1].value, date: input[2].value },
+        body = JSON.stringify( json )
+
+    //let newData = { "username": input[0].value, "score": input[1].value, "time": input[2].value }
+
+    const response = await fetch("/add_userdata", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(json)
+    })
+
+    document.querySelector("#loginButton").click()
+
+
+}
+
+
 
 
 
@@ -179,4 +223,13 @@ async function addUserData(userData)
 
     }
 
+}
+
+
+//What happens when a date button is clicked
+const dateButtonClick = async function( event ) {
+    event.preventDefault()
+
+    let dateBox = document.getElementById("date")
+    dateBox.value = event.target.firstChild.data
 }
