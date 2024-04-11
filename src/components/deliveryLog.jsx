@@ -255,17 +255,17 @@ const DeliveryLog = () => {
             <tr key={item._id}>
             <td>{item.service}</td>
             <td>{item.date}</td>
-            <td>{item.wages}</td>
-            <td>{item.tips}</td>
+            <td>${item.wages}</td>
+            <td>${item.tips}</td>
             <td>{item.miles}</td>
             <td>{item.time}</td>
             <td>{item.mpg}</td>
-            <td>{item.gasPrice}</td>
-            <td>{item.total}</td>
+            <td>${item.gasPrice}</td>
+            <td>${item.total}</td>
             <td>{item.gasUsed}</td>
-            <td>{item.gasCost}</td>
-            <td>{item.income}</td>
-            <td>{item.hourlyPay}</td>
+            <td>${item.gasCost}</td>
+            <td>${item.income}</td>
+            <td>${item.hourlyPay}</td>
             <td>
               <button 
                 // Materialize classes
