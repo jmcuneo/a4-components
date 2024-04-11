@@ -17,6 +17,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 
 
 const app = express()
+// ViteExpress.config({ mode: "production" })
 
 app.use(express.json())
 passportConfig(passport);
@@ -55,6 +56,7 @@ app.get('/auth/github/callback',
 
 
 app.get("/", ensureAuthenticated, async (req, res) => {
+	res.setHeader('content-type', 'text/html');
 	res.sendFile(resolve(__dirname, "index.html"));
 })
 
