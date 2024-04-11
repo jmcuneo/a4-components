@@ -10,6 +10,7 @@ const appdata = [
 ]
 
 app.use(express.json())
+app.use(express.static('/'))
 
 app.use((req, res, next) => {
     console.log(req.url)
@@ -42,4 +43,4 @@ app.post('/remove', (req, res) => {
     res.json(appdata)
 })
 
-ViteExpress.listen(app, 5173, () => console.log("Server listening"))
+ViteExpress.listen(app, 3000, () => console.log("Server listening"))
