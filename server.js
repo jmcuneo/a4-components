@@ -19,6 +19,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 const app = express()
 // ViteExpress.config({ mode: "production" })
 
+// middleware inclusion
 app.use(express.json())
 passportConfig(passport);
 app.use(express.json());
@@ -39,6 +40,7 @@ const ensureAuthenticated = function (req, res, next) {
 	res.redirect("login.html");
 }
 
+// routes
 app.get('/login', (req, res) => {
 	res.redirect("login.html");
 })
@@ -76,6 +78,7 @@ app.get("/shifts/get", ensureAuthenticated, async (req, res) => {
 	res.send(shifts);
 })
 
+// route to get authenticated users name
 app.get("/shifts/name", ensureAuthenticated, (req, res) => {
 	res.send({ user: req.user.username} );
 })

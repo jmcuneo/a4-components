@@ -53,7 +53,7 @@
 		form.reset();
 
 		// perform delete request (we use post bcuz per rfc, delete shouldnt have body)
-		//
+	
 		const response = await fetch("/shifts/delete", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -63,7 +63,6 @@
 		if (response.ok) {
 			tableData = await getShifts();
 		}
-		// await for response, render updated html
 	};
 
 	const getShifts = async function () {
@@ -84,6 +83,7 @@
 		return data.user;
 	};
 
+	// on loading this page, set initial data and table
 	onMount(async () => {
 		let shifts = await getShifts();
 		let user = await getUser();
