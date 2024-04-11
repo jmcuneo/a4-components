@@ -63,6 +63,10 @@ app.get('/check-auth', (req, res) => {
 
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html')); 
+});
+
 //login route
 app.post('/login', async (req, res) => {
   try {
