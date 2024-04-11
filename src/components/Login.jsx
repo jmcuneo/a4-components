@@ -33,15 +33,12 @@ function Login() {
       } 
 
       const data = await response.json();
-      setMessage("Logging In...");
-      //const newUrl = `/main?text=${encodeURIComponent(data.username)}`;
-
-      //console.log("Navigating");  
+      setMessage("Logging In..."); 
       navigate("/delivery-log");
 
     } catch (error) {
-      console.error('Login error:', error);
-      setMessage('Login failed: ' + error);
+      console.error('Login error:', error.message);
+      setMessage('Login failed: ' + error.message);
     }
   };
 
@@ -67,8 +64,8 @@ function Login() {
       }
 
     } catch (error) {
-      console.error('Registration error:', error);
-      setMessage('An error occurred during registration: ' + error);
+      console.error('Registration error:', error.message);
+      setMessage('An error occurred during registration: ' + error.message);
     }
   };
 
