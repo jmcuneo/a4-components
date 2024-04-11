@@ -1,0 +1,37 @@
+{
+  "name": "package",
+  "version": "",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "build": "babel public/js/main.js --out-file dist/main.js",
+    "start": "node server.improved.js"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.24.4",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "connect-ensure-login": "^0.1.1",
+    "connect-redis": "^7.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.19.2",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.18.0",
+    "mime": "^2.4.4",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.2.4",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0",
+    "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite-express": "^0.16.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.4",
+    "@babel/preset-react": "^7.24.1"
+  }
+}
