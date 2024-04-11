@@ -1,0 +1,69 @@
+html, body {
+  background-color: #2FF5AD;
+}
+
+body {
+  background-color: #2FF5AD;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-family: "Audiowide", sans-serif;
+  background-color: #4860E8;
+  text-align: center;
+}
+
+p {
+  font-family: "Audiowide", sans-serif;
+  background-color: #4860E8;
+  text-align: center;
+}
+
+table {
+  margin: auto;
+}
+
+table, th, td {
+  width: 60%;
+  border: 2px solid;
+  background-color: #93DEDB;
+  text-align: center;
+}
+
+br {
+  display: block;
+  margin: 5px;
+}
+
+label { 
+  display: block;
+  width: 500px;
+  text-align: left;
+}
+
+ul {
+  list-style: none;
+}
+
+input {
+  width: 50%;
+}
+
+button {
+  width: 150px;
+  border: 3px dotted;
+  font-family: "Fugaz One", sans-serif;
+  font-size: 15px;
+}
+
+.box {
+  width: 600px;
+  align-self: center;
+  margin: 0 auto;
+}
+
+.notice {
+  padding-top: 5%;
+}
