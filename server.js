@@ -1,4 +1,5 @@
-const http = require( "http" ),
+const express = require('express'),
+      http = require( "http" ),
       fs   = require( "fs" ),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library if you"re testing this on your local machine.
@@ -8,6 +9,8 @@ const http = require( "http" ),
       dir  = "public/",
       port = 3000
 
+  const app = express();
+
 const appdata = [
   { "model": "toyota", "year": 1999, "mpg": 23 },
   { "model": "honda", "year": 2004, "mpg": 30 },
@@ -16,18 +19,8 @@ const appdata = [
 
 let namesArray = []
 
-const server = http.createServer( function( request,response ) {
-  if( request.method === "GET" ) {
-    handleGet( request, response )
-  }else if( request.method === "POST" ){
-    handlePost( request, response )
-  }else if (request.method === "DELETE"){
-    handleDelete(request, response)
-  }
-
-})
-
-const handleGet = function( request, response ) {
+// app.get = function( request, response ) {
+  app.get ('/data', (request, response ) => {
   const filename = dir + request.url.slice( 1 )
 
   if( request.url === "/" ) {
@@ -39,9 +32,9 @@ const handleGet = function( request, response ) {
   else{
     sendFile( response, filename )
   }
-}
+});
 
-const handlePost = function( request, response ) {
+app.post ("/submit",( request, response ) => {
   let dataString = ""
 
   request.on( "data", function( data ) {
@@ -75,9 +68,9 @@ const handlePost = function( request, response ) {
       response.writeHead(200, "OK", {"Content-Type": "application/json"})
       response.end(JSON.stringify(nameJson))
     })
-  }
+  });
 
-const handleDelete = function( request, response ) {
+  app.delete ("/delete",( request, response ) => {
   let dataString = ""
 
   request.on( "data", function( data ) {
@@ -100,7 +93,7 @@ const handleDelete = function( request, response ) {
     response.writeHead(200, "OK", {"Content-Type": "application/json"})
     response.end(JSON.stringify({status: 'success', message: 'Delete'}))
   })
-}
+});
 
 const sendFile = function( response, filename ) {
    const type = mime.getType( filename )
@@ -125,6 +118,6 @@ const sendFile = function( response, filename ) {
 }
 
 // server.listen( process.env.PORT || port )
-server.listen( process.env.PORT || port, () => {
+app.listen( process.env.PORT || port, () => {
     console.log(`Server is running on http://localhost:${process.env.PORT || port}`);
   });
