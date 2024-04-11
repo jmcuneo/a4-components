@@ -1,6 +1,7 @@
 const express = require('express'),
       http = require( "http" ),
       fs   = require( "fs" ),
+      path = require('path'),
       // IMPORTANT: you must run `npm install` in the directory for this assignment
       // to install the mime library if you"re testing this on your local machine.
       // However, Glitch will install it automatically by looking in your package.json
@@ -19,13 +20,16 @@ const appdata = [
 
 let namesArray = []
 
-// app.get = function( request, response ) {
-  app.get ('/data', (request, response ) => {
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+app.get ('/data', (request, response ) => {
   const filename = dir + request.url.slice( 1 )
 
-  if( request.url === "/" ) {
-    sendFile( response, "public/index.html" )
-  } else if (request.url === "/data"){
+  if (request.url === "/data"){
     response.writeHead( 200, "OK", {"Content-Type": "application/json" })
     response.end(JSON.stringify(namesArray))
   }
