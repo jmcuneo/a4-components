@@ -25,10 +25,12 @@ function Login() {
           password: passwordRef.current.value
         })
       });
-
-      const data = await response.json();
-      setMessage("Logging In..."); 
-      navigate("/delivery-log");
+      
+      if (response.ok) {
+        const data = await response.json();
+        setMessage("Logging In..."); 
+        navigate("/delivery-log");
+      } 
 
     } catch (error) {
       console.error('Login error:', error.message);
