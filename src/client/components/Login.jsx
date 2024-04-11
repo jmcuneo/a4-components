@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = (verifyAuth) => {
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ const Login = (verifyAuth) => {
         password,
       });
       if (response.data.isAuthenticated) {
-        verifyAuth();
-        navigate("/");
+        // refresh the page to reflect the new authentication status
+        window.location.reload();
       } else {
         alert(response.data.message);
       }

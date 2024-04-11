@@ -16,7 +16,7 @@ const Register = () => {
     }
     try {
       await axios.post("/api/auth/register", { username, password });
-      navigate("/login");
+      window.location.reload();
     } catch (error) {
       console.error("Register error", error);
     }
