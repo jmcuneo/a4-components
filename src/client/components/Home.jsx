@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 
 const Home = () => {
   const [todos, setTodos] = useState([]);
@@ -13,6 +14,7 @@ const Home = () => {
     try {
       const response = await axios.get("/api/todos");
       setTodos(response.data);
+      console.log("Fetched todos:", response.data);
     } catch (error) {
       console.error("Failed to fetch todos:", error);
     }
@@ -73,19 +75,35 @@ const Home = () => {
               key={todo._id}
               className="list-group-item d-flex justify-content-between align-items-center"
             >
-              <input
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => handleToggleTodo(todo._id, todo.completed)}
-                className="form-check-input me-2"
-              />
-              {todo.title}
-              <button
-                onClick={() => handleDeleteTodo(todo._id)}
-                className="btn btn-danger btn-sm"
-              >
-                Delete
-              </button>
+              <div className="form-check">
+                <input
+                  id={`todo-checkbox-${todo._id}`}
+                  type="checkbox"
+                  checked={todo.completed}
+                  onChange={() => handleToggleTodo(todo._id, todo.completed)}
+                  className="form-check-input me-2"
+                />
+                <label
+                  className="form-check-label flex-grow-1"
+                  htmlFor={`todo-checkbox-${todo._id}`}
+                >
+                  {todo.title}
+                </label>
+              </div>
+              <div className="d-flex align-items-center">
+                <span className="badge bg-success ms-2">
+                  Created at: {moment(todo.createdAt).format("L LT")}
+                </span>
+                <span className="badge bg-secondary ms-2">
+                  {todo.timeSinceAdded}
+                </span>
+                <button
+                  onClick={() => handleDeleteTodo(todo._id)}
+                  className="btn btn-danger btn-sm ms-2"
+                >
+                  x
+                </button>
+              </div>
             </li>
           ))}
         </ul>
