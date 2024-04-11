@@ -35,7 +35,7 @@ export const InstructionsPage = () => {
                                     <a className="nav-link" href="/user_info">User Information</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/auth/logout">Logout</a>
+                                    <a className="nav-link" href="/logout">Logout</a>
                                 </li>
                             </ul>
                         </div>

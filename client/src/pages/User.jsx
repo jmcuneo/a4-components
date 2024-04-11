@@ -12,9 +12,7 @@ export const UserPage = () => {
                 .then( json => {
                     setData( json )
                 })
-            // const jsonData = await response.json();
-            //
-            // setData(jsonData);
+
         };
 
         fetchUserData();
@@ -54,7 +52,7 @@ export const UserPage = () => {
                                     <a className="nav-link" href="/user_info">User Information</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/auth/logout">Logout</a>
+                                    <a className="nav-link" href="/logout">Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -63,7 +61,7 @@ export const UserPage = () => {
             </nav>
 
             <div className="apply-translation">
-                {/*{{#each userdata}}*/}
+
                 {data.map((dt) => (
                 <div className="dashboard">
                     <h1>User Information</h1>
@@ -77,7 +75,7 @@ export const UserPage = () => {
                     <input className="form-control" type="text" value={dt.createdAt} aria-label="Disabled input example" disabled readOnly/>
                 </div>
                 ))}
-                {/*{{/each}}*/}
+
             </div>
 
         </>
