@@ -1,34 +1,176 @@
-import express from  'express'
+import express from 'express'
 import ViteExpress from 'vite-express'
+
+import passport from 'passport'
+import passportConfig from './config/passport.mjs'
+import session from 'express-session'
+import cors from 'cors'
+import dayjs from 'dayjs'
+import  connect from './db/connection.mjs'
+import { database } from './db/connection.mjs'
+import getNextID from './db/userData.mjs'
+import { resolve } from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
+
 
 const app = express()
 
-const todos = [
-  { name:'buy groceries', completed:false }
-]
+app.use(express.json())
+passportConfig(passport);
+app.use(express.json());
+app.use(cors());
+app.use(session({
+	secret: 'sessionSecretHehe',
+	resave: false,
+	saveUninitialized: false,
+	cookie: { maxAge: 60000 * 60 * 24 }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use( express.json() )
+const ensureAuthenticated = function (req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	res.redirect("login.html");
+}
 
-app.use( (req,res, next) => {
-  console.log( req.url )
-  next()
+app.get('/login', (req, res) => {
+	res.redirect("login.html");
 })
 
-// this will most likely be 'build' or 'public'
-// app.use(express.static('public') )
+app.get('/auth/github',
+	passport.authenticate('github', { scope: ['user:email'] }));
 
-app.get( '/read', ( req, res ) => res.json( todos ) )
+app.get('/auth/github/callback',
+	passport.authenticate('github', { failureRedirect: '/login' }),
+	function (req, res) {
+		// Successful authentication, redirect home.
+		res.redirect('/');
+	});
 
-app.post( '/add', ( req,res ) => {
-  todos.push( req.body )
-  res.json( todos )
+
+
+app.get("/", ensureAuthenticated, async (req, res) => {
+	// render users shifts on index page, if properly authenticated
+	// const db = database();
+
+	// const shifts = await db.collection("shifts").find({ user: req.user.username }).toArray();
+	// shifts.forEach((shift) => {
+	// 	delete shift._id;
+	// 	delete shift.user;
+	// })
+	// console.log(shifts);
+
+	res.sendFile(resolve(__dirname, "index.html"));
+
 })
 
-app.post( '/change', function( req,res ) {
-  const idx = todos.findIndex( v => v.name === req.body.name )
-  todos[ idx ].completed = req.body.completed
-  
-  res.sendStatus( 200 )
+
+app.get("/shifts/get", async (req, res) => {
+	const db = database();
+
+	const shifts = await db
+		.collection("shifts")
+		.find({ user: req.user.username })
+		.toArray();
+	shifts.forEach((shift) => {
+		delete shift._id;
+		delete shift.user;
+	});
+	res.send(shifts);
 })
 
-ViteExpress.listen( app, 3000 )
+app.post("/shifts/add", async (req, res) => {
+	const db = database();
+
+	// if the request doesnt have an ID, user wants to add a new shift.
+	// create the new shift, and find the record for it.
+	if (req.body.id == "") {
+		let shiftID = await getNextID.getNextID(req.user.username);
+		const startDate = dayjs(req.body.start);
+		const endDate = dayjs(req.body.end);
+		const duration = endDate.diff(startDate, 'hour', true);
+		const doc = {
+			id: shiftID.toString(),
+			user: req.user.username,
+			start: startDate.toString(),
+			end: endDate.toString(),
+			duration: duration.toString()
+		};
+		await db.collection("shifts").insertOne(doc);
+	} else {
+		// use is requesting to update a shift
+		const old = { id: req.body.id }
+		const startDate = dayjs(req.body.start);
+		const endDate = dayjs(req.body.end);
+		const duration = endDate.diff(startDate, 'hour', true);
+		const update = {
+			$set: {
+				start: startDate.toString(),
+				end: endDate.toString(),
+				duration: duration.toString()
+			}
+		};
+		await db.collection("shifts").updateOne(old, update)
+	}
+
+	// render the new shifts!
+	const shifts = await db.collection("shifts").find({ user: req.user.username }).toArray();
+	shifts.forEach((shift) => {
+		delete shift._id;
+		delete shift.user;
+	})
+	console.log(shifts);
+
+	res.locals.user = req.user.username;
+	res.locals.shiftRecords = shifts;
+	// res.render("index");
+})
+
+app.post("/shifts/delete", async (req, res) => {
+	// delete the requested shift !
+	const db = database();
+	const coll = db.collection("shifts");
+	console.log(req.body);
+	const query = { id: req.body.removeID, user: req.user.username };
+	console.log(query);
+	const find = await coll.findOne(query);
+	if (find) {
+		const result = await coll.deleteOne({ _id: find._id });
+		if (result === 1) {
+			console.log("success")
+		} else {
+			console.error("unsuccess");
+		}
+	}
+	// render the shifts after deleting the shift
+	const shifts = await db.collection("shifts").find({ user: req.user.username }).toArray();
+	shifts.forEach((shift) => {
+		delete shift._id;
+		delete shift.user;
+	})
+	console.log(shifts);
+
+	res.locals.user = req.user.username;
+	res.locals.shiftRecords = shifts;
+	// res.render("index");
+
+})
+
+// connect to database first. then establish web server.
+connect().then(() => {
+	console.log("Connected to Mongo");
+	ViteExpress.listen(app, 3000, () => {
+		console.log("Listening to web requests");
+	})
+
+}).catch((err) => {
+	console.log(err);
+});
+
+
+// ViteExpress.listen(app, 3000)
