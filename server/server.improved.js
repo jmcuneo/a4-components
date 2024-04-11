@@ -19,7 +19,6 @@ const appdata = [
   {"Id": 3, "model": "Ford", "year": 1987, "mpg": 14,"fuelLoad": 10,"tillEmpty": 14*10  } // 0 is placeholder
 ]
 
-app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
 app.get('/', (req, res) => {
