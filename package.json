@@ -1,0 +1,44 @@
+{
+  "name": "a4-lucassicard",
+  "version": "",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "serve": "node server.js"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "cookie-session": "^2.1.0",
+    "express": "^4.19.2",
+    "mime": "^2.4.4",
+    "mongodb": "^6.5.0",
+    "react": "^18.2.0",
+    "react-cookie": "^7.1.4",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "^5.0.1",
+    "typescript": "^4.9.5"
+  },
+  "engines": {
+    "node": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/cookie-session": "^2.0.48",
+    "@types/react": "^18.2.75",
+    "@types/react-dom": "^18.2.24"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
