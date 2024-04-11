@@ -1,12 +1,14 @@
 import express from "express";
 import {MongoClient} from "mongodb";
 import ViteExpress from "vite-express";
+import dotenv from 'dotenv';
 
 const app = express();
 app.use(express.json());
+dotenv.config();
 
 // MongoDB connection URI
-const uri = "mongodb+srv://cspeavey:2huuCZ.sC!2fXYLV-Jg@gpacluster.0gt60k9.mongodb.net/?retryWrites=true&w=majority&appName=gpaCluster";
+const uri = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}`
 
 // Connect to MongoDB
 MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
