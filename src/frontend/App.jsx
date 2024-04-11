@@ -7,9 +7,9 @@ import {
   Navigate,
 } from "react-router-dom";
 
-// import Home from "./Home"; // Your home page component
-// import Login from "./Login"; // Your login component
-// import Register from "./Register"; // Your register component
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 // Hook to check authentication status
 const useAuth = () => {
@@ -19,7 +19,7 @@ const useAuth = () => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        const response = await axios.get("/auth/check");
+        const response = await axios.get("/api/auth/check");
         setIsAuthenticated(response.data.isAuthenticated);
       } catch (error) {
         setIsAuthenticated(false);
@@ -47,17 +47,15 @@ const App = () => {
       <Routes>
         <Route
           path="/login"
-          element={isAuthenticated ? <Navigate to="/" /> : <h1>Login</h1>}
+          element={isAuthenticated ? <Navigate to="/" /> : <Login />}
         />
         <Route
           path="/register"
-          element={isAuthenticated ? <Navigate to="/" /> : <h1>Register</h1>}
+          element={isAuthenticated ? <Navigate to="/" /> : <Register />}
         />
         <Route
           path="/"
-          element={
-            isAuthenticated ? <h1>Home Page</h1> : <Navigate to="/login" />
-          }
+          element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
         />
         {/* Redirect all other routes based on authentication status */}
         <Route
