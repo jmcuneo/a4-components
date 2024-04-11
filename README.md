@@ -22,10 +22,8 @@ Do the following to complete this assignment:
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+## Simple To-Do List, Using Svelte!
 
-your hosting link e.g. http://a4-charlieroberts.glitch.me
+http://a4-parkerfrizzle.glitch.me
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+For this project I re-implemented my submission for Assignment 2 using Svelte components. Overall I found that the new technology did improve the development experience. I initially had some difficulties trying to figure out how to get the project set up, especially with getting the server set up properly alongside it. However, once I got past that I found Svelte very easy to work with. I've used React a few times for my other courses this year so I already have some familiarity with component-based JavaScipt frameworks, but I was pleasantly surprised by how much more I liked Svelte after being introduced to it through this assignment. I found Svelte a lot more intuitive and I really enjoyed the quality of life features it offers (e.g. how simple it is to create DOM elements from an array using an #each loop).
