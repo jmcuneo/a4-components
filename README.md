@@ -1,6 +1,6 @@
 # Assignment 4 (Ad Hoc Hour Logging System) - Spencer Greene
 
-Access at: [https://a4-spencergreene.onrender.com/ ](https://a4-spencergreene.onrender.com/l)
+Access at: [https://a4-spencergreene.onrender.com/ ](https://a4-spencergreene.onrender.com/)
 
 A simple system to log hours for independent contract work. From A3:
 
