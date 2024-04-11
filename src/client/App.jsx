@@ -10,6 +10,7 @@ import {
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import "./styles.css";
 
 // Hook to check authentication status
 const useAuth = () => {

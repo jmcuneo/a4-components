@@ -26,47 +26,49 @@ const Login = (verifyAuth) => {
   };
 
   return (
-    <div
-      className="container bg-white shadow rounded p-4"
-      style={{ width: "400px" }}
-    >
-      <h2 className="text-center mb-4">Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    <div className="vh-100 d-flex align-items-center justify-content-center">
+      <div
+        className="container bg-white shadow rounded p-4"
+        style={{ width: "400px" }}
+      >
+        <h2 className="text-center mb-4">Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-primary w-100">
+            Login
+          </button>
+        </form>
+        <div className="mt-4 text-center">
+          Don't have an account?{" "}
+          <a href="/register" className="btn btn-link">
+            Register
+          </a>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary w-100">
-          Login
-        </button>
-      </form>
-      <div className="mt-4 text-center">
-        Don't have an account?{" "}
-        <a href="/register" className="btn btn-link">
-          Register
-        </a>
       </div>
     </div>
   );

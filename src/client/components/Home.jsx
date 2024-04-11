@@ -59,47 +59,49 @@ const Home = () => {
   };
 
   return (
-    <div className="container bg-white shadow rounded p-4">
-      <div className="d-flex align-items-center custom-header">
-        <h1 className="mb-4 flex-grow-1 text-center">To-Do List</h1>
-        <button onClick={handleLogout} className="btn btn-danger btn-sm">
-          Logout
-        </button>
-      </div>
-      <ul className="list-group mb-3">
-        {todos.map((todo) => (
-          <li
-            key={todo._id}
-            className="list-group-item d-flex justify-content-between align-items-center"
-          >
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => handleToggleTodo(todo._id, todo.completed)}
-              className="form-check-input me-2"
-            />
-            {todo.title}
-            <button
-              onClick={() => handleDeleteTodo(todo._id)}
-              className="btn btn-danger btn-sm"
+    <div className="vh-100 d-flex align-items-center justify-content-center">
+      <div className="container bg-white shadow rounded p-4">
+        <div className="d-flex align-items-center custom-header">
+          <h1 className="mb-4 flex-grow-1 text-center">To-Do List</h1>
+          <button onClick={handleLogout} className="btn btn-danger btn-sm">
+            Logout
+          </button>
+        </div>
+        <ul id="todos-list" className="list-group mb-3">
+          {todos.map((todo) => (
+            <li
+              key={todo._id}
+              className="list-group-item d-flex justify-content-between align-items-center"
             >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-      <form className="d-flex gap-2 mt-3" onSubmit={handleAddTodo}>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Add a new task"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-        />
-        <button type="submit" className="btn btn-primary">
-          Add
-        </button>
-      </form>
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => handleToggleTodo(todo._id, todo.completed)}
+                className="form-check-input me-2"
+              />
+              {todo.title}
+              <button
+                onClick={() => handleDeleteTodo(todo._id)}
+                className="btn btn-danger btn-sm"
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+        <form className="d-flex gap-2 mt-3" onSubmit={handleAddTodo}>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Add a new task"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+          />
+          <button type="submit" className="btn btn-primary">
+            Add
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
