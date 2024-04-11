@@ -6,3 +6,16 @@
 .no-space-break{
     white-space:nowrap;
   }
+
+.input-wrapper label {
+display: block; /* Force label to be a block element */
+}
+
+#userInfo {
+    position: fixed; /* Make it stick to the viewport */
+    top: 0;          /* Position at the very top */
+    left: 0;         /* Position at the very left */
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+  

@@ -37,22 +37,30 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Example middleware for route protection
-function isLoggedIn(req, res, next) {
+/*function isLoggedIn(req, res, next) {
   if (req.session.isLoggedIn) {
     next(); // User is logged in, proceed to the route
   } else {
-    res.redirect('/index'); // Redirect to the login page
+    res.redirect('/login'); // Redirect to the login page
   }
-}
+}*/
 
 // Protected authentication check route
-app.get('/check-auth', isLoggedIn, (req, res) => {
-  res.json({
-    success: true,
-    message: 'User is authenticated',
-    username: req.user.username // Access username set by Passport
-  });
+app.get('/check-auth', (req, res) => {
+  if(activeUser !== ""){
+    res.json({
+      success: true,
+      message: 'User is authenticated',
+      username: activeUser // Access username set by Passport
+    });
+  }
+  else {
+    res.json({
+      success: false,
+      message: 'User is not authenticated',
+    });
+  }
+
 });
 
 //login route
@@ -118,13 +126,14 @@ app.post('/register', async (req, res) => {
 app.get('/logout', (req, res) => {
   req.logout(function(err) {
     if (err) { return next(err); }
+    activeUser = "";
     res.json({ success: true, message: "Logged out" });
   });
 });
 
 // Route to get all documents
-app.get('/docs', isLoggedIn, async (req, res) => {
-  const collectionName = "foodLog_" + req.user.username;
+app.get('/docs', async (req, res) => {
+  const collectionName = "foodLog_" + activeUser;
   const collection = client.db("foodLogData").collection(collectionName);
   try {
     const docs = await collection.find({}).toArray();
@@ -137,7 +146,7 @@ app.get('/docs', isLoggedIn, async (req, res) => {
 
 // Add Route
 app.post('/add', async (req, res) => {
-  const collectionName = "foodLog_" + req.user.username;
+  const collectionName = "foodLog_" + activeUser;
   const collection = client.db("foodLogData").collection(collectionName);
   const newItem = req.body;
   const updatedItem = calculateItemProperties(newItem);
@@ -148,7 +157,7 @@ app.post('/add', async (req, res) => {
 
 // Delete Route
 app.delete('/delete', async (req, res) => {
-  const collectionName = "foodLog_" + req.user.username;
+  const collectionName = "foodLog_" + activeUser;
   const collection = client.db("foodLogData").collection(collectionName);
   const itemId = req.body.itemId;
   try {
@@ -168,7 +177,7 @@ app.delete('/delete', async (req, res) => {
 
 // Update Route
 app.post('/edit-item', async (req, res) => {
-  const collectionName = "foodLog_" + req.user.username;
+  const collectionName = "foodLog_" + activeUser;
   const collection = client.db("foodLogData").collection(collectionName);
   const itemId = req.body.itemId;
   const updatedData = req.body;

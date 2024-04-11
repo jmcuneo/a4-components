@@ -22,8 +22,6 @@ const App = () => {
         path="/"
         element={<Login />}
       />
-        {/*<Route path="/login" element={<Login />} />
-        <Route path="/delivery-log" element={<DeliveryLog />} />*/}
       </Routes>
     </Router>
   );

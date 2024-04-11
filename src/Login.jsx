@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom"
+import 'materialize-css/dist/css/materialize.min.css'; 
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -33,9 +34,9 @@ function Login() {
 
       const data = await response.json();
       setMessage("Logging In...");
-      const newUrl = `/main?text=${encodeURIComponent(data.username)}`;
+      //const newUrl = `/main?text=${encodeURIComponent(data.username)}`;
 
-      console.log("Navigating");  
+      //console.log("Navigating");  
       navigate("/delivery-log");
 
     } catch (error) {
@@ -76,15 +77,15 @@ function Login() {
       <h1 style={{ marginLeft: '30px' }}>Food Delivery Log Sign-In</h1> 
       <form className="col s12" id="loginForm" onSubmit={handleSubmit}>
         <div className="col"> 
-          <div className="input-field col s6">
-            <div><label style={{ fontSize: '20px', color: 'white' }} htmlFor="username">Username</label></div>
+        <div className="input-field col s6">
+            <div><label style={{ fontSize: '20px', color: 'black' }} htmlFor="username">Username</label></div>
             <input className="validate" type="text" id="username" name="username" data-length="10" required ref={usernameRef}/>
           </div>
           <div className="input-field col s6">
-            <div><label style={{ fontSize: '20px', color: 'white' }} htmlFor="password">Password</label></div>
+            <div><label style={{ fontSize: '20px', color: 'black' }} htmlFor="password">Password</label></div>
             <input className="validate" type="password" id="password" name="password" required ref={passwordRef}/>
           </div>
-          <button style={{ marginLeft: '10px', marginTop: '10px', backgroundColor: 'rgb(3, 252, 98)', color: 'black', fontWeight: 'bold' }} className="btn waves-effect waves-light" type="submit" id="loginButton">Login</button>
+          <button style={{ marginLeft: '10px', marginTop: '10px', backgroundColor: 'rgb(3, 252, 98)', color: 'black', fontWeight: 'bold' }} className="btn waves-effect waves-light"type="submit" id="loginButton">Login</button>
           <button style={{ marginLeft: '10px', marginTop: '10px', backgroundColor: 'rgb(178, 114, 238)', color: 'black', fontWeight: 'bold' }} className="btn waves-effect waves-light" type="button" id="registerButton" onClick={handleRegister}>Register</button>
         </div>
       </form>

@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
+import 'materialize-css/dist/css/materialize.min.css'; 
+import { useNavigate } from "react-router-dom"
+import EditModal from './editModal';
+
 
 const DeliveryLog = () => {
   const [service, setService] = useState('');
@@ -11,14 +15,66 @@ const DeliveryLog = () => {
   const [mpg, setMpg] = useState('');
   const [gasPrice, setGasPrice] = useState('');
   const [items, setItems] = useState([]);
+  const [username, setUsername] = useState(null);
+  const navigate = useNavigate();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editFormData, setEditFormData] = useState(null);
 
   useEffect(() => {
+    checkAuth();
     fetchAllDocs();
-  }, []); // Fetch documents on component mount
+  }, []);
+
+  const checkAuth = async () => {
+    try {
+      const response = await fetch('//localhost:3000/check-auth');
+      const data = await response.json();
+      if (data.success == true) {
+        setUsername(data.username);
+        displayUserInfo(data.username);
+      } else {
+        // Not authenticated, redirect to login
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error('Error checking authentication:', error);
+    }
+  };
+
+  function displayUserInfo(username) {
+    const userInfoDiv = document.getElementById('userInfo');
+    userInfoDiv.innerHTML = '';
+    const usernameSpan = document.createElement('span');
+    usernameSpan.id = 'username';
+    usernameSpan.textContent = username;
+    usernameSpan.style="font-size: 20px; font-weight: bold;"
+  
+    const logoutButton = document.createElement('button');
+    logoutButton.textContent = 'Logout';
+    logoutButton.classList.add('logoutButton'); 
+    logoutButton.className = "btn waves-effect waves-light"; 
+    logoutButton.style="margin-left: 20px; color:black; background-color: rgb(178, 114, 238); font-weight: bold;";
+  
+    logoutButton.addEventListener('click', () => {
+      fetch('//localhost:3000/logout')
+        .then(response => {
+          if (response.ok) {
+            navigate('/login')
+          }
+        })
+        .catch(error => console.error('Logout error:', error)); 
+    });
+  
+    userInfoDiv.appendChild(usernameSpan);
+    userInfoDiv.appendChild(logoutButton);
+  }
+
 
   const fetchAllDocs = async () => {
     try {
-      const response = await fetch('/docs');
+      const response = await fetch('//localhost:3000/docs', {
+        method: 'GET'
+      });
       if (!response.ok) {
         throw new Error(`Request failed with status: ${response.status}`);
       }
@@ -49,7 +105,7 @@ const DeliveryLog = () => {
     };
 
     try {
-      const response = await fetch('/add', {
+      const response = await fetch('//localhost:3000/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -75,37 +131,105 @@ const DeliveryLog = () => {
     }
   };
 
+  const handleDelete = async (index) => {
+    try {
+      const itemId = items[index]._id; // Get the item ID
+      const response = await fetch('//localhost:3000/delete', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ itemId })
+      });
+
+      if (response.ok) {
+        const updatedItems = [...items];
+        updatedItems.splice(index, 1); // Remove the deleted item 
+        setItems(updatedItems);
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+    }
+  };
+  
+  const handleEdit = (index, items) => {
+    console.log("Edit button clicked, index:", index); // Add this line
+    console.log("Item to edit:", items[index]); // Check item data
+    setEditFormData(items[index]);
+    setIsEditModalOpen(true); 
+  };
+
   return (
     <div className="container">
       <header className="container">
-        <div id="userInfo" className="left-align"></div>
+        <div id="userInfo"></div>
       </header>
       <form id="addItemForm" onSubmit={handleAddEntry}>
         <div className="row">
           <div className="input-field col s2">
-            <label htmlFor="service">Uber/Dash</label>
-            <input type="text" id="service" value={service} onChange={(e) => setService(e.target.value)} />
+            <div className="input-wrapper"> 
+                <label style={{color: 'black', fontSize: '20px'}} htmlFor="service">Uber/Dash</label>
+                <input type="text" id="service" value={service} onChange={(e) => setService(e.target.value)} />
+            </div>
           </div>
           <div className="input-field col s2">
-            <label htmlFor="date">Date</label>
-            <input type="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <div className="input-wrapper"> 
+                <label style={{color: 'black', fontSize: '20px'}} htmlFor="date">Date</label>
+                <input type="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            </div>
           </div>
           <div className="input-field col s1">
-            <label htmlFor="wages">Wages</label>
-            <input type="number" id="wages" value={wages} onChange={(e) => setWages(e.target.value)} />
+            <div className="input-wrapper"> 
+                <label style={{color: 'black', fontSize: '20px'}} htmlFor="wages">Wages</label>
+                <input type="number" id="wages" value={wages} onChange={(e) => setWages(e.target.value)} />
+            </div>
           </div>
-          {/* Add other input fields here */}
           <div className="input-field col s1">
-            <button className="btn waves-effect waves-light" type="submit">
-              Add Entry
+            <div className="input-wrapper"> 
+                <label style={{color: 'black', fontSize: '20px'}} htmlFor="tips">Tips</label>
+                <input type="number" id="tips" value={tips} onChange={(e) => setTips(e.target.value)} />
+            </div>
+          </div>
+          <div className="input-field col s1">
+            <div className="input-wrapper"> 
+                <label style={{color: 'black', fontSize: '20px'}} htmlFor="miles">Miles</label>
+                <input type="number" id="miles" value={miles} onChange={(e) => setMiles(e.target.value)} />
+            </div>
+          </div>
+          <div className="input-field col s1">
+            <div className="input-wrapper"> 
+                <label style={{color: 'black', fontSize: '20px'}} htmlFor="time">Time</label>
+                <input type="number" id="time" value={time} onChange={(e) => setTime(e.target.value)} />
+            </div>
+          </div>
+          <div className="input-field col s1">
+            <div className="input-wrapper"> 
+                <label style={{color: 'black', fontSize: '20px'}} htmlFor="mpg">MPG</label>
+                <input type="number" id="mpg" value={mpg} onChange={(e) => setMpg(e.target.value)} />
+            </div>
+          </div>
+          <div className="input-field col s1">
+            <div className="input-wrapper"> 
+                <label style={{color: 'black', fontSize: '20px'}} htmlFor="gasPrice">Gas&nbsp;Price</label>
+                <input type="number" id="gasPrice" value={gasPrice} onChange={(e) => setGasPrice(e.target.value)} />
+            </div>
+          </div>
+          <div className="input-field col s1">
+            <button style={{marginTop: '30px', marginLeft: '30px'}} className="btn waves-effect waves-light" type="submit">
+              Add&nbsp;Entry
             </button>
           </div>
         </div>
       </form>
 
+      {isEditModalOpen && (
+    <EditModal 
+      itemData={editFormData} 
+      onClose={() => setIsEditModalOpen(false)} 
+    />
+  )}
+
       <h2 className="header">Food Delivery Log</h2>
       <table className="stripped bordered">
-        <thead>
+      <thead>
           <tr>
             <th>Service</th>
             <th>Date</th>
@@ -123,15 +247,45 @@ const DeliveryLog = () => {
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => (
+          {items.map((item, index) => (
             <tr key={item._id}>
-              <td>{item.service}</td>
-              <td>{item.date}</td>
-              {/* Render other item properties */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <td>{item.service}</td>
+            <td>{item.date}</td>
+            <td>{item.wages}</td>
+            <td>{item.tips}</td>
+            <td>{item.miles}</td>
+            <td>{item.time}</td>
+            <td>{item.mpg}</td>
+            <td>{item.gasPrice}</td>
+            <td>{item.total}</td>
+            <td>{item.gasUsed}</td>
+            <td>{item.gasCost}</td>
+            <td>{item.income}</td>
+            <td>{item.hourlyPay}</td>
+            <td>
+              <button 
+                // Materialize classes
+                className="btn waves-effect waves-light red"
+                style={{ color: 'black', fontWeight: 'bold' }} 
+                onClick={() => handleDelete(index)}
+              >
+                Delete
+              </button>
+            </td>
+            <td>
+              <button
+                // Materialize classes
+                className="btn waves-effect waves-light orange"
+                style={{ color: 'black', fontWeight: 'bold' }}  
+                onClick={() => handleEdit(index, items)}
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
     </div>
   );
 };
