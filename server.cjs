@@ -1,15 +1,8 @@
 const express = require('express'),
-  app = express()
-  session = require('express-session');
+  app = express(),
   path = require('path');
 
 require('dotenv').config()
-
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json())
@@ -20,18 +13,8 @@ let guest_password = null
 //LOGIN END
 
 app.get('/', function(req, res) {
-	// Render login template
-	res.sendFile(path.join(__dirname + '/public/login.html'));
-});
-
-app.get('/main', (req, res) => {
-  // If the user is loggedin
-	if (req.session.loggedin) {
-		res.sendFile(path.join(__dirname + '/public/main.html'));
-	} else {
-		// Not logged in
-		res.sendFile(path.join(__dirname + '/public/err.html'));
-	}
+	
+	res.sendFile(path.join(__dirname + '/public/index.html'));
 })
 
 //DATABASE CONNECTION START
@@ -100,37 +83,6 @@ app.post('/update', async (req, res) => {
   res.json(result)
 })
 //DATABASE CONNECTION END
-
-app.post('/login', async (req, res) => {
-  const login_data = req.body
-
-  if(guest_username === null){
-    guest_username = login_data.uname
-    guest_password = login_data.psw
-    console.log(`Successful sign in: ${login_data.uname}`)
-    //sign them in...
-    req.session.loggedin = true
-    req.session.username = guest_username
-    res.redirect("/main")
-    res.end()
-  } else { //not a new user
-
-    if(guest_username === login_data.uname && guest_password === login_data.psw){
-      //success!
-      req.session.loggedin = true
-      req.session.username = guest_username
-      console.log(`Successful sign in: ${login_data.uname}`)
-      res.redirect("/main")
-      res.end()
-    } else {
-      //failed
-      res.status(401).send("Incorrect Username or password!")
-      res.end()
-    }
-
-  }
-
-})
 
 const calculateEOL = (year, mpg) => {
   let new_val = year + mpg;
