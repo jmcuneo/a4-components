@@ -30,7 +30,7 @@ const DeliveryLog = () => {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('//localhost:3000/check-auth');
+      const response = await fetch('https://a4-jack-weinstein.onrender.com/check-auth');
       const data = await response.json();
       if (data.success == true) {
         setUsername(data.username);
@@ -59,7 +59,7 @@ const DeliveryLog = () => {
     logoutButton.style="margin-left: 20px; color:black; background-color: rgb(178, 114, 238); font-weight: bold;";
   
     logoutButton.addEventListener('click', () => {
-      fetch('//localhost:3000/logout')
+      fetch('https://a4-jack-weinstein.onrender.com/logout')
         .then(response => {
           if (response.ok) {
             navigate('/login')
@@ -75,7 +75,7 @@ const DeliveryLog = () => {
 
   const fetchAllDocs = async () => {
     try {
-      const response = await fetch('//localhost:3000/docs', {
+      const response = await fetch('https://a4-jack-weinstein.onrender.com/docs', {
         method: 'GET'
       });
       if (!response.ok) {
@@ -108,7 +108,7 @@ const DeliveryLog = () => {
     };
 
     try {
-      const response = await fetch('//localhost:3000/add', {
+      const response = await fetch('https://a4-jack-weinstein.onrender.com/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -137,7 +137,7 @@ const DeliveryLog = () => {
   const handleDelete = async (index) => {
     try {
       const itemId = items[index]._id; // Get the item ID
-      const response = await fetch('//localhost:3000/delete', {
+      const response = await fetch('https://a4-jack-weinstein.onrender.com/delete', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ itemId })

@@ -16,7 +16,7 @@ const EditModal = ({ itemData, onClose, isEditModalOpen, items }) => {
         try {
             const itemId = items[itemData.index]._id.toString(); 
       
-            const response = await fetch('//localhost:3000/edit-item', {
+            const response = await fetch('https://a4-jack-weinstein.onrender.com/edit-item', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ itemId, ...formData }) // Directly use formData

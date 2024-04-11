@@ -17,7 +17,7 @@ function Login() {
     setMessage('Logging in...');
 
     try {
-      const response = await fetch('//localhost:3000/login', {
+      const response = await fetch('https://a4-jack-weinstein.onrender.com/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -50,7 +50,7 @@ function Login() {
     setMessage('Registering');
 
     try {
-      const response = await fetch('//localhost:3000/register', {
+      const response = await fetch('https://a4-jack-weinstein.onrender.com/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
