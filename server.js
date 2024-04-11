@@ -11,6 +11,7 @@ import User from './user.model.js';
 import cors from 'cors';
 import { MongoClient, ObjectId } from 'mongodb';
 import bcrypt from 'bcryptjs';
+import path from 'path';
 
 const app = express();
 
