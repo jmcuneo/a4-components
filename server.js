@@ -28,7 +28,7 @@ passport.use(
     {
       clientID: "a2f861be70a70fbdd144",
       clientSecret: "e8c5f26c527590f56f32643827edd6ac00668a08",
-      callbackURL: "https://a4-patrickhunter.glitch.me/auth/github/callback",
+      callbackURL: "https://a4-patrick-hunter.glitch.me/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       process.nextTick(function () {
