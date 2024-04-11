@@ -8,17 +8,14 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "engines": {
-    "node": "20.x"
-  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "svelte": "^4.2.12",
     "vite": "^5.2.0"
   },
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.19.2",
-    "three": "^0.163.0",
     "vite-express": "^0.16.0"
   }
 }
