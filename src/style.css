@@ -1,0 +1,55 @@
+.container {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.no-space-break{
+    white-space:nowrap;
+  }
+
+.input-wrapper label {
+display: block; /* Force label to be a block element */
+}
+
+#userInfo {
+    position: fixed; /* Make it stick to the viewport */
+    top: 0;          /* Position at the very top */
+    left: 0;         /* Position at the very left */
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+/* Row Styling (Green) */
+  table.stripped tbody tr:nth-child(even) { 
+    background-color: lightgreen; /* Light green */
+  }
+  
+  table.stripped tbody tr:nth-child(odd) { 
+    background-color: #99e399; /* Slightly darker green */
+  }
+  
+  /* Gray Columns (0-6) */
+  table.stripped tbody tr:nth-child(odd) td:nth-child(-n + 7) { 
+      background-color: rgb(233, 230, 230); /* Light gray */
+  } 
+  
+  table.stripped tbody tr:nth-child(even) td:nth-child(-n + 7) {
+       background-color: #dbd9d9; /* Slightly darker gray */  
+  }
+  
+  /* Green Columns (7 onwards) - No changes necessary */
+  table.stripped tbody tr td:nth-child(n + 8):nth-child(-n + 15) { 
+     background-color: #8add8a; /* Darker green (unchanged) */
+  }
+  
+  table.stripped tbody tr:nth-child(odd) td:nth-child(n + 8):nth-child(-n + 15) {
+     background-color: lightgreen; /* Light green for odd rows (unchanged) */
+  } 
+  
+  table.stripped tbody tr td {
+    border-right: 1px solid lightgray; /* Adjust color and thickness as needed */
+  }
+  
+  /* Optional: Remove border from the last column in each row */
+  table.stripped tbody tr td:last-child {
+    border-right: none;
+  }
