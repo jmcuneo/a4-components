@@ -1,31 +1,7 @@
-Assignment 4 - Components
-===
+## Austin Rebello A4 Components
 
-For this assignment you will re-implement the client side portion of *either* A2 or A3 using either React or Svelte components. If you choose A3 you only need to use components for the data display / updating; you can leave your login UI as is.
+Hosting Link: https://a4-austinrebello.onrender.com/
 
-[Svelte Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.svelte.md)  
-[React Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.react.md)  
+I followed a [React tutorial](https://www.youtube.com/watch?v=SqcY0GlETPk) to create a blank React project. I decided to implement Assignment 2 into this project for simplicity reasons, allowing me to focus more on learning React than trying to mesh React with a more complex project. The only thing I was not able to get working easily was the table automatically updating on data changes, which is why there is now a button to update the data in the table.
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku, etc.). However, you must include all files in your GitHub repo so that the course staff can view them.
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a4-firstname-lastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a4-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a4-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+I would say that React both improved and hindered my development experience, though some of the hindering was my own fault, so overall I would say it improved the development experience. This is because I felt that building and implementing components to dynamically add content to the page, along with ease of styling, made developing the page mostly straightforward. I did struggle to get different components to communicate with each other (in the sense of updating data automatically), which I am certain can be solved with better use of setStates.
