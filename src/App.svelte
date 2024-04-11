@@ -3,6 +3,7 @@
 	import { onMount } from "svelte";
 
 	let tableData = [];
+	let userName;
 
 	// FRONT-END (CLIENT) JAVASCRIPT HERE
 
@@ -32,7 +33,6 @@
 			headers: { "Content-Type": "application/json" },
 			body,
 		});
-
 		tableData = await getShifts();
 	};
 
@@ -60,8 +60,10 @@
 			body,
 		});
 
+		if (response.ok) {
+			tableData = await getShifts();
+		}
 		// await for response, render updated html
-		tableData = await getShifts();
 	};
 
 	const getShifts = async function () {
@@ -74,10 +76,20 @@
 		// console.log(data);
 	}
 
+	const getUser = async function() {
+		const response = await fetch("/shifts/name", {
+			method: "GET"
+		});
+		let data = await response.json();
+		return data.user;
+	}
+
 
 	onMount (async () => {
 		let shifts = await getShifts();
+		let user = await getUser();
 		tableData = shifts;
+		userName = user;
 	});
 
 	window.onload = function () {};
@@ -86,7 +98,7 @@
 <header>
 	<div class="container-md text-center">
 		<h1>Ad-Hoc Time Entry</h1>
-		<h2>Signed In As:</h2>
+		<h2>Signed In As: {userName}</h2>
 		<p>
 			A simple system to enter/log time for independently contracted work.
 		</p>

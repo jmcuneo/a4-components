@@ -59,7 +59,8 @@ app.get("/", ensureAuthenticated, async (req, res) => {
 })
 
 
-app.get("/shifts/get", async (req, res) => {
+// route to get all shifts for the authorized user
+app.get("/shifts/get", ensureAuthenticated, async (req, res) => {
 	const db = database();
 
 	const shifts = await db
@@ -73,13 +74,18 @@ app.get("/shifts/get", async (req, res) => {
 	res.send(shifts);
 })
 
-app.post("/shifts/add", async (req, res) => {
+app.get("/shifts/name", ensureAuthenticated, (req, res) => {
+	res.send({ user: req.user.username} );
+})
+
+// route to add a shift
+app.post("/shifts/add", ensureAuthenticated, async (req, res) => {
 	const db = database();
 
 	// if the request doesnt have an ID, user wants to add a new shift.
 	// create the new shift, and find the record for it.
 	if (req.body.id == "") {
-		let shiftID = await getNextID.getNextID(req.user.username);
+		let shiftID = await getNextID(req.user.username);
 		const startDate = dayjs(req.body.start);
 		const endDate = dayjs(req.body.end);
 		const duration = endDate.diff(startDate, 'hour', true);
@@ -106,21 +112,11 @@ app.post("/shifts/add", async (req, res) => {
 		};
 		await db.collection("shifts").updateOne(old, update)
 	}
-
-	// render the new shifts!
-	const shifts = await db.collection("shifts").find({ user: req.user.username }).toArray();
-	shifts.forEach((shift) => {
-		delete shift._id;
-		delete shift.user;
-	})
-	console.log(shifts);
-
-	res.locals.user = req.user.username;
-	res.locals.shiftRecords = shifts;
-	// res.render("index");
+	res.status(200).send('OK');
 })
 
-app.post("/shifts/delete", async (req, res) => {
+// route to delete a shift
+app.post("/shifts/delete", ensureAuthenticated, async (req, res) => {
 	// delete the requested shift !
 	const db = database();
 	const coll = db.collection("shifts");
@@ -130,27 +126,16 @@ app.post("/shifts/delete", async (req, res) => {
 	const find = await coll.findOne(query);
 	if (find) {
 		const result = await coll.deleteOne({ _id: find._id });
-		if (result === 1) {
+		if (result.deletedCount === 1) {
 			console.log("success")
 		} else {
 			console.error("unsuccess");
 		}
 	}
-	// render the shifts after deleting the shift
-	const shifts = await db.collection("shifts").find({ user: req.user.username }).toArray();
-	shifts.forEach((shift) => {
-		delete shift._id;
-		delete shift.user;
-	})
-	console.log(shifts);
-
-	res.locals.user = req.user.username;
-	res.locals.shiftRecords = shifts;
-	// res.render("index");
-
+	res.status(200).send('OK');
 })
 
-// connect to database first. then establish web server.
+// connect to database first. then establish vite web server.
 connect().then(() => {
 	console.log("Connected to Mongo");
 	ViteExpress.listen(app, 3000, () => {
@@ -160,6 +145,3 @@ connect().then(() => {
 }).catch((err) => {
 	console.log(err);
 });
-
-
-// ViteExpress.listen(app, 3000)
