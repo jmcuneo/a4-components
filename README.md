@@ -2,7 +2,7 @@
 
 Klaudio Fusha
 
-[GLITCH LINK TO BE ADDED]
+https://a4-klaudiofusha.onrender.com/
 
 My project for this assignment is a version of the workout calorie calculator that I used in A2. This app does not use any of the MongoDB server-side code featured in A3. Hence, it uses a simple express server that is similar to the one used in A2. As in previous versions of this application, users have the ability to input a workout starting time and ending time, type, and intensity to get an estimate of how many calories they have burned. Once the form is submitted, data will be dynamically displayed in a results table at the bottom of the page. In that table, users have the ability to view, edit, and delete workout data using respective buttons attached to each row containing data. Data is preserved on the client-side using react functionality.
 
