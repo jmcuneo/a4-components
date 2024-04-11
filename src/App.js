@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './App.css';
 
 function App() {
-  let highestId = 0;
-  let rowNum = 1
+  const highestId = useRef(0);
+  // let rowNum = 1
   let currTable = [];
 
   //this function auto capitalizes the first letter of a word
@@ -42,18 +42,18 @@ function App() {
 
 
   //get data returns the data currently saved in the server
-  const getData = async function () {
+  // const getData = async function () {
 
-    const response = await fetch("/data", {
-      method: "GET"
-    })
-      .then((response) => response.json())
-      .then(jsonData => {
-        return jsonData;
-      });
+  //   const response = await fetch("/data", {
+  //     method: "GET"
+  //   })
+  //     .then((response) => response.json())
+  //     .then(jsonData => {
+  //       return jsonData;
+  //     });
 
-    console.log(response)
-  }
+  //   console.log(response)
+  // }
 
   //remove reads the id in the remove text bo and sends a delete request to the server
   const remove = async function (event) {
@@ -83,7 +83,7 @@ function App() {
   //remove table takes the tabls, finds the row that has a corresponding id with the passed in id and deletes the row
   function removeTable(id) {
     let table = document.getElementById("table");
-    let del = parseInt(id);
+    // let del = parseInt(id);
 
     for (let i = 0; i < table.rows.length; i++) {
       if (id === parseInt(table.rows[i].cells[0].innerHTML)) {
@@ -115,7 +115,7 @@ function App() {
     }
     event.preventDefault();
 
-    highestId++
+    highestId.current++;
 
     //this assigns the input values into variables
     const inputFirstName = document.querySelector("#firstName");
@@ -123,7 +123,8 @@ function App() {
     const inputLastName = document.querySelector("#lastName");
 
     //this creates the json
-    const json = { id: highestId, firstName: capFirstLetter(inputFirstName.value), middleName: capFirstLetter(inputMiddleName.value), lastName: capFirstLetter(inputLastName.value) };
+    const json = { id: highestId.current, firstName: capFirstLetter(inputFirstName.value), middleName: capFirstLetter(inputMiddleName.value), lastName: capFirstLetter(inputLastName.value) };
+    // const json = { id: highestId, firstName: capFirstLetter(inputFirstName.value), middleName: capFirstLetter(inputMiddleName.value), lastName: capFirstLetter(inputLastName.value) };
     const body = JSON.stringify(json)
 
     //this is the response to the server
@@ -137,7 +138,7 @@ function App() {
 
     //this calls the add table function so the table can be properly formatted with the new name
     addTable(data.id, data.firstName, data.middleName, data.lastName, data.initial)
-    rowNum++
+    // rowNum++
   }
 
   useEffect(() => {
@@ -151,16 +152,16 @@ function App() {
 
       //this section of the onload is how the table is able to persist if the page refreshes, it calls for the data on the server and if its there, it repopulates the table by calling addTable
       fetch('/data')
-        .then(response => response.json())
-        .then(dataArray => {
-          if (Array.isArray(dataArray) && dataArray.length > 0) {
-            for (let i = 0; i < dataArray.length; i++) {
-              const curr = dataArray[i]
-              addTable(curr.id, curr.firstName, curr.middleName, curr.lastName, curr.initial)
-
-              if (curr.id > highestId) {
-                highestId = curr.id;
-              }
+      .then(response => response.json())
+      .then(dataArray => {
+        if (Array.isArray(dataArray) && dataArray.length > 0) {
+          for (let i = 0; i < dataArray.length; i++) {
+            const curr = dataArray[i]
+            addTable(curr.id, curr.firstName, curr.middleName, curr.lastName, curr.initial)
+    
+            if (curr.id > highestId.current) {
+              highestId.current = curr.id;
+            }
             }
           }
         })
