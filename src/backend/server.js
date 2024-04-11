@@ -28,8 +28,8 @@ app.use(require("./config/auth")); // for req.user all over the app
 
 /* Routes */
 // Update paths based on directory structure
-app.use("/todos", require("./routes/todoRoute"));
 app.use("/auth", require("./routes/userRoute"));
+app.use("/todos", require("./routes/todoRoute"));
 
 // Redirect all non-API requests to the React app in production
 // This is important for supporting HTML5 history mode in React Router

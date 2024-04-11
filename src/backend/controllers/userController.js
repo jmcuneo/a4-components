@@ -2,6 +2,11 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// Check if user is authenticated
+async function checkUser(req, res) {
+  res.json({ isAuthenticated: !!req.user });
+}
+
 // Register User
 async function register(req, res) {
   try {
@@ -75,6 +80,7 @@ async function logout(req, res) {
 }
 
 module.exports = {
+  checkUser,
   register,
   login,
   logout,
