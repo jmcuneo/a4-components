@@ -28,8 +28,8 @@ function Login() {
       
       if (!response.ok) {
         const data = await response.json();
-        setMessage(data.message || 'Login failed'); // Display the specific error message
-        throw new Error('Login failed');
+        setMessage(data.message || 'Login failed: ' + error.message); // Display the specific error message
+        throw new Error('Login failed: ' + error.message);
       } 
 
       const data = await response.json();
@@ -60,7 +60,7 @@ function Login() {
       if (response.ok) {
         setMessage('Registration successful! You can now log in.');
       } else {
-        setMessage('Registration failed. Please try again: ' + data.message);
+        setMessage('Registration failed. Please try again: ' + error.message);
       }
 
     } catch (error) {
