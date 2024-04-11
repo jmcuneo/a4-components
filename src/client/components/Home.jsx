@@ -47,9 +47,15 @@ const Home = () => {
     }
   };
 
-  const handleLogout = () => {
-    // Perform logout logic here
+  const handleLogout = async () => {
+    // get request to /api/auth/logout
     console.log("Logging out...");
+    try {
+      await axios.get("/api/auth/logout");
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
   };
 
   return (
