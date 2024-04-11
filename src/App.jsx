@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import DeliveryLog from './deliveryLog';
-import Login from './Login';
+import DeliveryLog from './components/deliveryLog';
+import Login from './components/Login';
 
 const App = () => {
   return (

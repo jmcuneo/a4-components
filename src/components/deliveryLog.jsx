@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './style.css';
-import 'materialize-css/dist/css/materialize.min.css'; 
+import '../style.css';
+import M from 'materialize-css/dist/js/materialize.min';
 import { useNavigate } from "react-router-dom"
 import EditModal from './editModal';
 
@@ -19,11 +19,14 @@ const DeliveryLog = () => {
   const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState(null);
+  const [_, forceUpdate] = useState(0); 
 
   useEffect(() => {
     checkAuth();
     fetchAllDocs();
-  }, []);
+    const modalElems = document.querySelectorAll('.modal');
+    M.Modal.init(modalElems); // Initialize modals
+  }, [isEditModalOpen]);
 
   const checkAuth = async () => {
     try {
@@ -151,10 +154,9 @@ const DeliveryLog = () => {
   };
   
   const handleEdit = (index, items) => {
-    console.log("Edit button clicked, index:", index); // Add this line
-    console.log("Item to edit:", items[index]); // Check item data
     setEditFormData(items[index]);
     setIsEditModalOpen(true); 
+    setEditFormData(prevData => ({ ...prevData, index })); 
   };
 
   return (
@@ -220,12 +222,14 @@ const DeliveryLog = () => {
         </div>
       </form>
 
-      {isEditModalOpen && (
+    {isEditModalOpen && (
     <EditModal 
       itemData={editFormData} 
       onClose={() => setIsEditModalOpen(false)} 
+      isEditModalOpen={isEditModalOpen} // Pass the state as a prop
+      items={items}
     />
-  )}
+    )}
 
       <h2 className="header">Food Delivery Log</h2>
       <table className="stripped bordered">
