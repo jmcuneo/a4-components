@@ -10,9 +10,9 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist"),
   },
-  server: {
-    proxy: {
-      "/api": "http://localhost:3000",
-    },
-  },
+  // server: {
+  //   proxy: {
+  //     "/api": "http://localhost:3000",
+  //   },
+  // },
 });
