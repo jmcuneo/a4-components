@@ -68,24 +68,23 @@
 
 	const getShifts = async function () {
 		const response = await fetch("/shifts/get", {
-			method: "GET"
+			method: "GET",
 		});
 		let data = await response.json();
 		return data;
 		// const data = await response.text();
 		// console.log(data);
-	}
+	};
 
-	const getUser = async function() {
+	const getUser = async function () {
 		const response = await fetch("/shifts/name", {
-			method: "GET"
+			method: "GET",
 		});
 		let data = await response.json();
 		return data.user;
-	}
+	};
 
-
-	onMount (async () => {
+	onMount(async () => {
 		let shifts = await getShifts();
 		let user = await getUser();
 		tableData = shifts;
@@ -185,6 +184,6 @@
 >
 	<div class="container-md text-center mt-3">
 		<h2>Shift Record</h2>
-		<Table tableData={tableData}/>
+		<Table {tableData} />
 	</div>
 </section>
