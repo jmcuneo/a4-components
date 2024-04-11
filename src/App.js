@@ -141,6 +141,7 @@ function App() {
   }
 
   useEffect(() => {
+    document.title = "A4 - Class Directory";
     window.onload = async function () {
       const createButton = document.querySelector("#newButton");
       createButton.onclick = submit;
