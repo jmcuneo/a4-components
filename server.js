@@ -55,18 +55,7 @@ app.get('/auth/github/callback',
 
 
 app.get("/", ensureAuthenticated, async (req, res) => {
-	// render users shifts on index page, if properly authenticated
-	// const db = database();
-
-	// const shifts = await db.collection("shifts").find({ user: req.user.username }).toArray();
-	// shifts.forEach((shift) => {
-	// 	delete shift._id;
-	// 	delete shift.user;
-	// })
-	// console.log(shifts);
-
 	res.sendFile(resolve(__dirname, "index.html"));
-
 })
 
 
