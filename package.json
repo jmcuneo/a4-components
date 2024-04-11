@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {"node": "16.x"},
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
