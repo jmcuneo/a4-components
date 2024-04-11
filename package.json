@@ -2,13 +2,13 @@
   "name": "taskwave",
   "version": "1.0.0",
   "description": "A fast and efficient todo list application built with Bun.",
-  "main": "src/backend/server.js",
+  "main": "src/server/server.js",
   "scripts": {
-    "start": "bun src/backend/server.js",
-    "dev": "concurrently \"bun --watch src/backend/server.js\" \"vite --config vite.config.js\"",
+    "start": "bun src/server/server.js",
+    "dev": "concurrently \"bun --watch src/server/server.js\" \"vite --config vite.config.js\"",
     "dev:frontend": "vite --config vite.config.js",
     "build": "vite build --config vite.config.js",
-    "serve": "bun src/backend/server.js"
+    "serve": "bun src/server/server.js"
   },
   "author": "William Huang",
   "license": "MIT",
