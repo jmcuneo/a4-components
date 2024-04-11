@@ -3,8 +3,7 @@ import ViteExpress from 'vite-express'
 
 const app = express()
 
-const tasks = [
-
+let tasks = [
 ]
 
 app.use(express.json())
@@ -14,23 +13,41 @@ app.use((req, res, next) => {
     next()
 })
 
-// this will most likely be 'build' or 'public'
 app.use(express.static('dist'))
 
 app.post('/add-task', (req, res) => {
     const isInList = tasks.findIndex(task => task.task === req.body.task)
-    console.log(JSON.stringify(req.body))
-    console.log(isInList)
     if (isInList !== -1) {
         tasks[isInList].dueDate = req.body.dueDate
     } else {
         tasks.push(req.body)
     }
-    res.status(200).json(tasks)
+    res.json(tasks)
 })
 
 app.get("/get-tasks", (req, res) => {
-    res.status(200).json(tasks)
+    res.json(tasks)
+})
+
+app.delete("/delete-tasks", (req, res) => {
+    let inboundTasks = Array.from(req.body)
+    tasks = tasks.filter((task, index) => {
+        return !inboundTasks.some(inboundTask => inboundTask.task === task.task);
+    })
+    console.log(JSON.stringify(tasks))
+    res.json(tasks)
+})
+
+app.get("*", (req, res) => {
+    res.redirect("/")
+})
+
+app.post("*", (req, res) => {
+    res.sendStatus(404)
+})
+
+app.delete("*", (req, res) => {
+    res.sendStatus(404)
 })
 
 ViteExpress.listen(app, 3000)

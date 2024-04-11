@@ -12,11 +12,23 @@
     ToolbarBatchActions,
   } from "carbon-components-svelte";
 
+  import { onMount } from "svelte";
+  import { writable } from "svelte/store";
+
   let currentDate = new Date();
-  let tasks;
+  let tasks = writable([]);
   let active = false;
   let selectedRowIds = [];
-  const headers = [{key: "task", value: "Task"},{key: "creation date", value: "Creation Date"}, {key: "due date", value: "Due Date"} ]
+  const headers = [
+    { key: "task", value: "Task" },
+    { key: "creationDate", value: "Creation Date" },
+    { key: "dueDate", value: "Due Date" },
+  ];
+
+  function updateTasks(taskData) {
+    taskData.forEach((element, index) => (element.id = index));
+    $tasks = taskData;
+  }
 
   const sendTaskData = async function (event) {
     event.preventDefault();
@@ -29,18 +41,40 @@
       },
       body: JSON.stringify({
         task: formData.get("task-name"),
-        creationDate: currentDate,
-        dueDate: formData.get("due-date"),
+        creationDate: currentDate.toISOString().split("T")[0],
+        dueDate: new Date(formData.get("due-date").toString())
+          .toISOString()
+          .split("T")[0],
       }),
     });
 
-    tasks = await response.json();
+    let data = await response.json();
+    updateTasks(data);
   };
 
   const getTaskData = async function () {
     const response = await fetch("/get-tasks");
-    tasks = await response.json();
+    let data = await response.json();
+    updateTasks(data);
   };
+
+  const deleteTaskData = async function (tasksToDelete) {
+    console.log(JSON.stringify(tasksToDelete));
+    const response = await fetch("/delete-tasks", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(tasksToDelete),
+    });
+
+    if (response.status === 404) {
+      return;
+    } else {
+      let data = await response.json();
+      updateTasks(data);
+    }
+  };
+
+  onMount(getTaskData);
 </script>
 
 <div id="form-container">
@@ -79,32 +113,56 @@
     </FormGroup>
   </Form>
 </div>
-<!-- <div class="div" id="results-container">
-  {#if tasks.length > 0}
-  <DataTable {headers} zebra stickyHeader selectable batchSelection={active} bind:selectedRowIds rows={tasks}>
-    <Toolbar>
-    <ToolbarBatchActions
-      bind:active
-      on:cancel={(e) => {
-        e.preventDefault();
-        active = false;
-      }}
+<div class="div" id="results-container">
+  {#if $tasks.length > 0}
+    <h2 id="results-header">Results:</h2>
+    <DataTable
+      {headers}
+      zebra
+      stickyHeader
+      selectable
+      batchSelection={active}
+      bind:selectedRowIds
+      rows={$tasks}
     >
-    <!-- TODO send a request instead of just modifying the list 
-      <Button
-        disabled={selectedRowIds.length === 0}
-        on:click={() => {
-          tasks = tasks.filter((task) => !selectedRowIds.includes(task.task));
-          selectedRowIds = [];
-        }}
-      >
-        Delete
-      </Button>
-    </ToolbarBatchActions>
-    <ToolbarContent>
-      <Button on:click={() => (active = true)}>Edit tasks</Button>
-    </ToolbarContent>
-  </Toolbar>
-  </DataTable>
+      <Toolbar>
+        <ToolbarBatchActions
+          bind:active
+          on:cancel={(e) => {
+            e.preventDefault();
+            active = false;
+          }}
+        >
+          <Button
+            disabled={selectedRowIds.length === 0}
+            on:click={() => {
+              let tasksToDelete = $tasks.filter((task) => {
+                return selectedRowIds.includes(task.id);
+              }); // list of tasks
+              deleteTaskData(tasksToDelete);
+              //to delete = tasks. get(selectedrowIds)
+              //tasks = deletetasks()
+              //selected ids = []
+              // tasks = tasks.filter(
+              //   (task) => !selectedRowIds.includes(task.task)
+              // );
+              selectedRowIds = [];
+            }}
+          >
+            Delete
+          </Button>
+        </ToolbarBatchActions>
+        <ToolbarContent>
+          <Button on:click={() => (active = true)}>Edit tasks</Button>
+        </ToolbarContent>
+      </Toolbar>
+    </DataTable>
   {/if}
-</div> -->
+</div>
+
+<style>
+  #results-header {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+</style>
