@@ -23584,10 +23584,10 @@ var BoxContainer = () => {
     const body = JSON.stringify({ id, color: colors[colorIdx] });
     switch (tool) {
       case "Hammer":
-        fetch("/rmv_box", { method: "POST", body }).then(setTimeout(load_boxes, 100));
+        fetch("/rmv_box", { method: "POST", body }).then(setTimeout(refresh, 100));
         break;
       case "Paint":
-        fetch("/paint_box", { method: "POST", body }).then(setTimeout(load_boxes, 100));
+        fetch("/paint_box", { method: "POST", body }).then(setTimeout(refresh, 100));
         break;
     }
   }
@@ -23599,7 +23599,7 @@ var BoxContainer = () => {
     const response = fetch("/add_box", {
       method: "POST",
       body
-    }).then(setTimeout(load_boxes, 100));
+    }).then(setTimeout(refresh, 100));
   }
   async function load_boxes() {
     console.log("loading boxes.!");
@@ -23628,9 +23628,12 @@ var BoxContainer = () => {
   function set_coloridx(newIdx) {
     setCIDX(newIdx);
   }
-  React7.useEffect(() => {
+  function refresh() {
     load_boxes();
     load_scores();
+  }
+  React7.useEffect(() => {
+    refresh();
   }, []);
   return /* @__PURE__ */ React7.createElement("div", { class: "glayout" }, /* @__PURE__ */ React7.createElement("div", { class: "main_content" }, /* @__PURE__ */ React7.createElement(Toolbar_default, { colors, color_values, color_idx: colorIdx, tool, useTool: (t) => use_tool(t), set_coloridx: (c) => set_coloridx(c) }), /* @__PURE__ */ React7.createElement("div", { class: "spacetaker" }), /* @__PURE__ */ React7.createElement(BoxArea_default, { callback: onboxclick, boxes, colors, color_values, addbox })), /* @__PURE__ */ React7.createElement(Leaderboard_default, { userScores: scores }));
 };

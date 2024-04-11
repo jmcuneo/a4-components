@@ -18,8 +18,8 @@ const BoxContainer = () => {
   function onboxclick(id) {
     const body = JSON.stringify({id: id, color: colors[colorIdx]});
     switch(tool) {
-      case "Hammer": fetch("/rmv_box", {method: "POST", body:body}).then(setTimeout(load_boxes, 100)); break;
-      case "Paint": fetch("/paint_box", {method: "POST", body:body}).then(setTimeout(load_boxes, 100)); break;
+      case "Hammer": fetch("/rmv_box", {method: "POST", body:body}).then(setTimeout(refresh, 100)); break;
+      case "Paint": fetch("/paint_box", {method: "POST", body:body}).then(setTimeout(refresh, 100)); break;
     }
   }
 
@@ -31,7 +31,7 @@ const BoxContainer = () => {
     const response = fetch( "/add_box", {
       method: "POST",
       body: body,
-    }).then(setTimeout(load_boxes, 100));
+    }).then(setTimeout(refresh, 100));
   }
 
   async function load_boxes() {
@@ -64,9 +64,13 @@ const BoxContainer = () => {
     setCIDX(newIdx);
   }
 
+  function refresh() {
+    load_boxes();
+    load_scores();
+  }
+
   React.useEffect(() => {
-      load_boxes();
-      load_scores();
+    refresh();
   }, []);
 
     return(<div class="glayout">

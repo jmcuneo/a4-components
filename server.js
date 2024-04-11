@@ -26,8 +26,8 @@ passport.deserializeUser(function (obj, done) {
 passport.use(
   new GitHubStrategy(
     {
-      clientID: "f55cac6ac0c54d5baf80",
-      clientSecret: "f2e8111b26a8c2cc944e8da550b1a77015c9bc16",
+      clientID: "a2f861be70a70fbdd144",
+      clientSecret: "e8c5f26c527590f56f32643827edd6ac00668a08",
       callbackURL: "https://a4-patrickhunter.glitch.me/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
@@ -77,17 +77,23 @@ async function connect() {
   db_user = await client.db("user_db");
 }
 
+let lock = 0;
 async function getNextID(username) {
+  //bad lock system?
+  while(lock == 1);
+  lock = 1;
   const userC = await db.collection(username);
   if (userC !== null) {
     const years = await userC
       .find({}, { year: 1 })
       .sort({ year: -1 })
       .toArray();
+    lock = 0;
     return years.length;
   } else {
     await db.createCollection(username);
   }
+  lock = 0;
   return 0;
 }
 
