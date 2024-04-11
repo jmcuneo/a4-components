@@ -25,12 +25,6 @@ function Login() {
           password: passwordRef.current.value
         })
       });
-      
-      if (!response.ok) {
-        const data = await response.json();
-        setMessage(data.message || 'Login failed: ' + error.message); // Display the specific error message
-        throw new Error('Login failed: ' + error.message);
-      } 
 
       const data = await response.json();
       setMessage("Logging In..."); 
