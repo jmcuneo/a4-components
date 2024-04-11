@@ -15,7 +15,7 @@ const passportConfig = (passport) => {
 	passport.use(new GithubStrategy.Strategy({
 		clientID: process.env.GITHUB_CLIENT_ID,
 		clientSecret: process.env.GITHUB_CLIENT_SECRET,
-		callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+		callbackURL: "https://a4-spencergreene.onrender.com/auth/github/callback"
 	},
 		function (accessToken, refreshToken, profile, done) {
 			// asynchronous verification, for effect...
