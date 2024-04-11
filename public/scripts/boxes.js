@@ -23520,14 +23520,8 @@ var Leaderboard_default = Leaderboard;
 // src/react/BoxArea.jsx
 var React2 = __toESM(require_react(), 1);
 function BoxArea(props) {
-  const handle_boxclick = (callback) => {
-    const id = this.id.split("_")[1];
-    callback(id);
-  };
   let boxes = [];
   props.boxes.forEach((box) => {
-    console.log("um?");
-    console.log(props.colors.indexOf(box.color));
     boxes.push(/* @__PURE__ */ React2.createElement("div", { className: "box", style: { backgroundColor: props.color_values[props.colors.indexOf(box.color)] }, id: `box_${box.id}`, onMouseDown: () => props.callback(box.id) }));
   });
   return /* @__PURE__ */ React2.createElement("div", { id: "box_area", class: "box_area" }, boxes, /* @__PURE__ */ React2.createElement("button", { class: "box add_box", onClick: () => props.addbox() }, "+"));
@@ -23541,7 +23535,6 @@ var React6 = __toESM(require_react(), 1);
 var React3 = __toESM(require_react(), 1);
 function ActionButton(props) {
   function checkClass() {
-    console.log("Checking class...");
     return props.currentTool === props.ID ? "tool_sel" : "";
   }
   return /* @__PURE__ */ React3.createElement("button", { className: checkClass(), id: props.ID, onClick: () => props.useTool(props.ID) }, props.ID, /* @__PURE__ */ React3.createElement("img", { src: props.img, alt: props.alt }));
@@ -23563,7 +23556,6 @@ var color_pick_default = ColorPick;
 var React5 = __toESM(require_react(), 1);
 function Logout(props) {
   const logout = () => {
-    console.log("Bye");
     window.location.href = "/logout";
   };
   return /* @__PURE__ */ React5.createElement("button", { id: "logout", value: "Logout", onClick: () => logout() }, "Logout");

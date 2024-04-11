@@ -4,7 +4,6 @@ import * as React from "react"
 function ActionButton(props) {
 
     function checkClass() {
-        console.log("Checking class...")
         return props.currentTool === props.ID ? "tool_sel" : ""
     }
     
