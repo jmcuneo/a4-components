@@ -26,11 +26,15 @@ function Login() {
         })
       });
       
-      if (response.ok) {
+      if (!response.ok) {
         const data = await response.json();
-        setMessage("Logging In..."); 
-        navigate("/delivery-log");
+        setMessage(data.message); // Display the specific error message
+        throw new Error('Login failed');
       } 
+
+      const data = await response.json();
+      setMessage("Logging In..."); 
+      navigate("/delivery-log");
 
     } catch (error) {
       console.error('Login error:', error.message);
@@ -56,7 +60,7 @@ function Login() {
       if (response.ok) {
         setMessage('Registration successful! You can now log in.');
       } else {
-        setMessage('Registration failed. Please try again: ' + error.message);
+        setMessage('Registration failed. Please try again: ' + data.message);
       }
 
     } catch (error) {
