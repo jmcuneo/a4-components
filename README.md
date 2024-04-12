@@ -1,31 +1,18 @@
-Assignment 4 - Components
-===
+## CS4241 Assignment 4
+Lucas Sicard
 
-For this assignment you will re-implement the client side portion of *either* A2 or A3 using either React or Svelte components. If you choose A3 you only need to use components for the data display / updating; you can leave your login UI as is.
+This site is meant to record monthly bills that you enter into it. It allows for updating, removing, & adding entries. I 
+tried to add react using the way I knew how with create-react-app, but I did not end up being able to run the server.js 
+& the index.tsx simultaneously without doing more to the project. I needed the server.js still because of the connection 
+with MongoDB. Probably, with a bit more time & a separated back & front end, I could build it properly. Unfortunately, I 
+ran out of time & this is all I have so far. Kind of funny as this is something I've done several times now with different 
+websites, using React & Typescript to build a web app, but nonetheless I still did not successfully upload this to Glitch.
 
-[Svelte Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.svelte.md)  
-[React Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.react.md)  
-
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku, etc.). However, you must include all files in your GitHub repo so that the course staff can view them.
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a4-firstname-lastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a4-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a4-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+If I were to continue these are the things I would do:
+* Build the app using Vite, React, & Typescript (code should mostly be the same, just a different setup)
+* From there, it seems that vite-express can run both the backend & frontend at the same time by using the server.js to 
+serve the frontend files.
+  * If not, I could possibly use another free service to run the server.js file & just use axios to make queries.
+* Then, make sure Login.tsx & Home.tsx buttons & queries work properly
+* Restyle it, probably using styled-components, & could use React-Bootstrap instead of just Bootstrap
+* Remove unnecessary files & then upload to Glitch
