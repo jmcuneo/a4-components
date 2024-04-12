@@ -54,11 +54,5 @@ app.use('/api/login', loginRoutes);
 app.use('/api', apiRoutes);
 
 
-app.use(express.static(path.join(__dirname, 'dist/client')));
-
-
-
-
-
 
 ViteExpress.listen( app, 3000 );

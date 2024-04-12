@@ -2,6 +2,7 @@
 import React from 'react';
 
 class Header extends React.Component {
+  
   render() {
     return (
       <div className="flex flex-col items-center justify-center py-2">
