@@ -1,0 +1,20 @@
+{
+  "name": "a4-carlosmedina",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "carbon-components-svelte": "^0.85.0",
+    "carbon-preprocess-svelte": "^0.11.2",
+    "svelte": "^4.2.12",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "express": "4.19.2"
+  }
+}
