@@ -114,6 +114,7 @@ router.get("/user_info", isAuth, async (req, res) => {
     try {
         const token = req.header("Authorization").replace("Bearer ", "");
         const userdata = await User.findOne({ githubId: token }).lean();
+        console.log(userdata)
         return res.json(userdata);
     } catch (err) {
         return res.json("error");

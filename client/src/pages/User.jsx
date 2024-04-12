@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 export const UserPage = () => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
     useEffect(() => {
         const token = localStorage.getItem("token");
         const fetchUserData = async () => {
@@ -102,8 +102,8 @@ export const UserPage = () => {
 
             <div className="apply-translation">
 
-                {data.map((dt, index) => (
-                    <div key={index} className="dashboard">
+
+                    <div className="dashboard">
                         <h1>User Information</h1>
                         <label>
                             <b>Github ID</b>
@@ -111,7 +111,7 @@ export const UserPage = () => {
                         <input
                             className="form-control"
                             type="text"
-                            value={dt.githubId}
+                            value={data.githubId}
                             aria-label="Disabled input example"
                             disabled
                             readOnly
@@ -122,7 +122,7 @@ export const UserPage = () => {
                         <input
                             className="form-control"
                             type="text"
-                            value={dt.displayName}
+                            value={data.displayName}
                             aria-label="Disabled input example"
                             disabled
                             readOnly
@@ -133,7 +133,7 @@ export const UserPage = () => {
                         <input
                             className="form-control"
                             type="text"
-                            value={dt.githubUrl}
+                            value={data.githubUrl}
                             aria-label="Disabled input example"
                             disabled
                             readOnly
@@ -144,13 +144,13 @@ export const UserPage = () => {
                         <input
                             className="form-control"
                             type="text"
-                            value={dt.createdAt}
+                            value={data.createdAt}
                             aria-label="Disabled input example"
                             disabled
                             readOnly
                         />
                     </div>
-                ))}
+
 
             </div>
         </>
