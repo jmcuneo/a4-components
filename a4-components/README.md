@@ -1,47 +1,12 @@
-# Svelte + Vite
+Assignment 4 - Components
+===
+---
+## Your Web Application Title
 
-This template should help get you started developing with Svelte in Vite.
+Hosting Link: http://a4-briannasahagian.glitch.me/
 
-## Recommended IDE Setup
+For this project, I re-implemented my A2 assignment using the Svelte framework. The largest things I changed were the client-side implementation of the application and the switch to an express app with a ViteExpress server. For the server.js file, I reformatted my requests using app.get/app.post routines and served my static files with express.static. For my client-side Svelte implementation, I transformed my logic into the App.svelte format. I got to explore new ways to handle promises: `{#await promise then appdata}`, trigger onclick functions: `<button on:click = "{removeMaterial}"></button>`, and populate my index.html file using an app div.
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+**Note**: Sometimes it is necessary to reload the page to get rid of a 'GET /' error, but everytime I've encountered this error with the site, I am able to navigate to the correct page after reloading. I am interested in why this is happening, if you have any insights.
 
-## Need an official Svelte framework?
-
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+The new technology definitely improved the development experience UNTIL it was time to host the application on Glitch. The switch to the App.svelte formatting was quite simple to pick up and the general request/response handling felt more straightforward than the async functions that we dealt with in A2, especially when receiving the appdata. Unfortunately, I ran into many issues with Glitch clashing with Svelte modules/file organization when trying to host my application. I was eventually able to figure out the hosting process for the Svelte framework on Glitch after initial failed attempts with Glitch, Render, and Vercel.

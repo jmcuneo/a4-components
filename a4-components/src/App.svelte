@@ -1,4 +1,7 @@
 <script>
+ /*
+  * A function that retrieves the table data stored in the server through a GET request
+  */
   const getData = function() {
     const p = fetch('/receive', {
       method: 'GET'
@@ -11,6 +14,10 @@
     return p
   }
 
+ /*
+  * A function that sends a POST request to the server with the part entry to add to appdata
+  * if the part with part_name exists, modify the entry instead of adding a new entry
+  */
   const addMaterial = function(e){
     e.preventDefault()
     const input = document.querySelectorAll("#add_part, #add_material, #add_quantity, #add_weight"),
@@ -25,6 +32,10 @@
       .then(response => response.json())
   }
 
+ /*
+  * A function that sends a POST request to the server with the part to remove from appdata
+  * identified by the Part Name input field (part_name)
+  */
   const removeMaterial = function(e){
     e.preventDefault()
     const input = document.querySelector("#remove_part"),
@@ -40,6 +51,8 @@
 
   let promise = getData()
   </script>
+
+  <!-- index.html logic with onclick events -->
   <body><br>
     <div class = "background">
     <div class = "text_background">
@@ -48,8 +61,11 @@
       <input type="text" id="add_material" placeholder="Material">
       <input type="text" id="add_quantity" placeholder = "Quantity">
       <input type="text" id="add_weight" placeholder = "Weight per Unit">
-      <button on:click = {addMaterial} id = "add_button">Add/Modify Part</button>
+      <!-- Onclick event for adding a part to the table (or modifying) -->
+      <button on:click = "{addMaterial}" id = "add_button">Add/Modify Part</button> 
     </form><br>
+
+    <!-- Waits for promise resolution before updating table -->
     {#await promise then appdata}
     <table id = "part_table">
       <th>Part Name</th>
@@ -63,7 +79,8 @@
     {/await}<br>
     <form>
       <input type="text" id="remove_part" placeholder = "Part name to remove">
-      <button on:click = {removeMaterial} id = "remove_button">Remove Part</button>
+      <!-- Onclick event for removing a part from the table -->
+      <button on:click = "{removeMaterial}" id = "remove_button">Remove Part</button>
     </form>
     
   </div>
