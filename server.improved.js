@@ -5,14 +5,16 @@ import passport_github from 'passport-github2';
 import handlebars from 'express-handlebars';
 import isolation from './isolation.js';
 import database from './database.js';
+import startProxy from './server.js';
+import path from 'path';
 
-// console.log(import.meta.env.PROD)
+console.log('path: '+path.resolve())
 
 const
   app = express(),
   port = 3000,
-  //CALLBACK_DOMAIN = "https://game.gamestream.stream";
-  CALLBACK_DOMAIN = "http://localhost:3000";
+  CALLBACK_DOMAIN = "https://game.gamestream.stream";
+//CALLBACK_DOMAIN = "http://localhost:3000";
 
 // setup database and sesions
 
@@ -129,9 +131,9 @@ app.post('/', (req, res) => {
 
 // Run
 
-if (false) {
+if (true) {
   // run proxy
-  require('server.js')
+  startProxy()
 }
 
 vite.listen(app, process.env.PORT || port)
