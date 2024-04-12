@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (data.message === 'User created successfully') {
                     alert('User created successfully');
                 }
-             window.location.href = '/index.html';
+             window.location.href = '/';
             } else {
                 alert(data.message);
             }

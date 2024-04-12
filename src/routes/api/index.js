@@ -1,10 +1,14 @@
-const express = require('express');
-require('dotenv').config();
+import e from 'express';
+import express from 'express';
+import { config } from 'dotenv';
+import mongoose from 'mongoose';
+
+config();
 const router = express.Router();
 const dir = 'public/';
 
 
-const mongoose = require('mongoose');
+
 const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const Schema = mongoose.Schema;
@@ -67,4 +71,4 @@ router.post('/add', async (req, res) => {
 });
 
 
-module.exports = router;
+export default router;

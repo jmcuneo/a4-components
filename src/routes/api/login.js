@@ -1,11 +1,13 @@
-const express = require('express');
-const passport = require('passport');
-require('dotenv').config();
-const router = express.Router();
-const GitHubStrategy = require('passport-github').Strategy;
-const dir = 'public/';
+import express from 'express';
+import passport from 'passport';
+import { config } from 'dotenv';
+import { Strategy as GitHubStrategy } from 'passport-github';
+import mongoose from 'mongoose';
+import session from 'express-session';
 
-const mongoose = require('mongoose');
+config();
+const router = express.Router();
+const dir = 'public/';
 const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const Schema = mongoose.Schema;
@@ -44,7 +46,6 @@ passport.deserializeUser(async (id, cb) => {
 });
 
 const app = express();
-const session = require('express-session');
 
 app.use(session({
   secret: 'your secret key',
@@ -104,4 +105,4 @@ router.get('/getusername', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

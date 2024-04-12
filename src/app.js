@@ -1,9 +1,17 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const apiRoutes = require('./routes/api');
-const loginRoutes = require('./routes/api/login');
-const path = require('path');
-const session = require('express-session');
+import express from 'express';
+import bodyParser from 'body-parser';
+import apiRoutes from './routes/api/index.js';
+import loginRoutes from './routes/api/login.js';
+import path from 'path';
+import session from 'express-session';
+import ViteExpress from 'vite-express';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 const app = express();
 
@@ -15,7 +23,7 @@ app.use(session({
   }));
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
 
     if (!req.session.userId && !req.path.startsWith('/api/login') && req.path != '/login.html') {
@@ -46,10 +54,11 @@ app.use('/api/login', loginRoutes);
 app.use('/api', apiRoutes);
 
 
-app.use(express.static(path.join(__dirname, 'private')));
+app.use(express.static(path.join(__dirname, 'dist/client')));
 
 
 
 
 
-module.exports = app;
+
+ViteExpress.listen( app, 3000 );
