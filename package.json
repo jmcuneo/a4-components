@@ -5,10 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "start": "cross-env NODE_ENV=production node server.js"
-  },
-  "engines": {
-    "node": "16.x"
+    "start": "node server.js"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",

@@ -1,5 +1,5 @@
 import express from 'express'
-import ViteExpress from 'vite-express'
+// import ViteExpress from 'vite-express'
 
 const app = express()
 
@@ -44,4 +44,5 @@ app.delete("*", (req, res) => {
     res.sendStatus(404)
 })
 
-ViteExpress.listen(app, 3000)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`)))
