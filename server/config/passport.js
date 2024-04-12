@@ -20,7 +20,7 @@ passport.use(
         {
             clientID: GITHUB_CLIENT_ID,
             clientSecret: GITHUB_CLIENT_SECRET,
-            callbackURL: "/auth/github/callback",
+            callbackURL: `${process.env.SELF_REFERENCE_URL}/auth/github/callback`,
         },
         async (accessToken, refreshToken, profile, done) => {
             const newUser = {
