@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const Data = require("../models/Data");
-const Session = require("../models/Session");
-const cookie = require("cookie-parser");
+
+
 
 //routes for GitHub strategy
 // Route to initiate the GitHub OAuth flow
