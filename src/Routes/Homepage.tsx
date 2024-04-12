@@ -1,8 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../css/App.css';
 import NavBar from "../Components/NavBar";
+import {game, user} from "../dataTypes";
+import GamesTable from "../Components/GamesTable";
 
-function Homepage() {
+type Props = {
+    user: user
+    games: game[]
+    setGames: (g: game[]) => void
+}
+function Homepage(props: Props) {
+    useEffect(() => {
+        const tempGames: game[] = [
+            {team1: 'he', user: props.user, team2: 'she', winner: 'draw', score2: 3, score1: 3},
+            {team1: 'Mike', user: props.user, team2: 'Prof. Cuneo', winner: 'Mike', score2: 0, score1: 100},
+            {team1: 'as', user: props.user, team2: 'df', winner: 'df', score2: 10, score1: 9}
+        ];
+        props.setGames(tempGames)
+    }, [props.user]);
+
     return (
         <div className="h-full w-full flex flex-col">
             <div className="bg-blue-950 h-16 w-full flex justify-end items-center p-0 m-0">
@@ -24,8 +40,10 @@ function Homepage() {
                         can delete and modify users in the View Users tab.
                     </p>
                 </div>
-                <div id="tableDiv"
-                     className="bg-blue-100 w-1/2 h-4/5 flex flex-col align-middle justify-start p-4 rounded-2xl border-4 border-blue-950"></div>
+                <div
+                     className="bg-blue-100 w-1/2 h-4/5 flex flex-col align-middle justify-start p-4 rounded-2xl border-4 border-blue-950">
+                    <GamesTable user={props.user} games={props.games} />
+                </div>
             </div>
         </div>
     );

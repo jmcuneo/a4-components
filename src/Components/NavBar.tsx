@@ -1,14 +1,13 @@
 import React from 'react';
-import logo from '../logo.svg';
 import '../css/App.css';
 
-function App() {
+function NavBar() {
     return (
         <div className="bg-blue-950 h-16 w-full flex justify-end items-center p-0 m-0">
             <div className="bg-blue-950 h-16 flex-grow flex items-center px-16">
                 <h1 className="text-white text-3xl">Game Manager</h1>
             </div>
-            <a href="/public">
+            <a href="/">
                 <button className="text-white h-16 w-48 bg-blue-950 hover:text-black hover:bg-blue-300">Homepage
                 </button>
             </a>
@@ -34,4 +33,4 @@ function App() {
     );
 }
 
-export default App;
+export default NavBar;
