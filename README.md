@@ -1,4 +1,4 @@
-##1RM Calculator
+## 1RM Calculator
 
 http://147.182.248.192:3000/
 
