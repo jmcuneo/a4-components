@@ -17,7 +17,7 @@ const appdata = [
 app.use( express.json() )
 
 app.get( '/read', ( req, res ) => {
-    console.log("Sending appdata: " + JSON.stringify(appdata))
+    // console.log("Sending appdata: " + JSON.stringify(appdata))
     res.json( appdata )
 })
 
@@ -35,7 +35,7 @@ app.post( '/add', ( req, res) => {
 
   let newData = {val1: parseInt(data.val1), val2: parseInt(data.val2), op: data.op, output, guess}
   appdata.push( newData )
-  console.log("Sending appdata: " + JSON.stringify(appdata))
+  // console.log("Sending appdata: " + JSON.stringify(appdata))
 
   res.json( appdata )
 })
@@ -57,6 +57,8 @@ app.post( '/modify', function( req,res ) {
   }
   
   appdata[data.index] = comboData //Replace old server data 
+  console.log("New mod data: " + JSON.stringify(appdata[data.index]))
+  res.json(appdata)
 })
 
 //Combine old and new data
