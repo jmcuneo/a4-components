@@ -8,11 +8,6 @@ let tasks = [
 
 app.use(express.json())
 
-app.use((req, res, next) => {
-    console.log(req.url)
-    next()
-})
-
 app.use(express.static('dist'))
 
 app.post('/add-task', (req, res) => {
@@ -34,7 +29,6 @@ app.delete("/delete-tasks", (req, res) => {
     tasks = tasks.filter((task, index) => {
         return !inboundTasks.some(inboundTask => inboundTask.task === task.task);
     })
-    console.log(JSON.stringify(tasks))
     res.json(tasks)
 })
 

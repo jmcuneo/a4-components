@@ -4,11 +4,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "start-prod": "cross-env NODE_ENV=production node server.js",
-    "start-dev": "node server.js"
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
