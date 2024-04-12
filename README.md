@@ -3,7 +3,7 @@ Assignment 4 - Components
 
 ## Billing System
 
-Hosting link - http://a4-charlieroberts.glitch.me
+Hosting link - https://a4-saitejasunku.onrender.com
 
 
 This billing system web application is taken from assignment #3 and was modified to use React frontend. React was used to provide reactive experience for the user.
