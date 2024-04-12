@@ -1,31 +1,7 @@
-Assignment 4 - Components
-===
+## A Simple Todo List
 
-For this assignment you will re-implement the client side portion of *either* A2 or A3 using either React or Svelte components. If you choose A3 you only need to use components for the data display / updating; you can leave your login UI as is.
+https://a4-stephenfanning.onrender.com
 
-[Svelte Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.svelte.md)  
-[React Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.react.md)  
+This application is a very simple to-do list that lets you keep track of tasks. Simply type the details of the task and click "Submit". You can enter the same task (but with different course, due date, or add date values) to modify existing entries in the list, and you can press "Clear" to delete them all. The Todo list is also user-specific. (No functional changes from Assignment A3)
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku, etc.). However, you must include all files in your GitHub repo so that the course staff can view them.
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a4-firstname-lastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a4-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a4-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+The new technology hindered the development process, but only because of my inexperience with it. Troubleshooting various issues, both with the client and integration with the server, proved exceptionally difficult given my limited experience with React and websites in general. However, I can clearly see how using React would greatly improve the development experience provided that the developer is experienced with the software.
