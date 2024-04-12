@@ -6,10 +6,20 @@ const { cache } = require("express/lib/application");
 
 //authenticate user
 const isAuth = (req, res, next) => {
-    if (req.user) {
-        next();
+    console.log("Iamprinting", req.user);
+    const header = req.header("Authorization");
+    if (!header || header == "" || header == undefined) {
+        // Set HTTP status code 401 for Unauthorized
+        res.status(401);
+
+        // Send a response indicating unauthorized access
+        res.send("Unauthorized access");
+    }
+    const token = header.replace("Bearer ", "");
+    if (!token || token == "null" || token == undefined) {
+        res.redirect(`${process.env.REACT_HOST}/`);
     } else {
-        res.redirect("/");
+        next();
     }
 };
 
@@ -54,32 +64,43 @@ function calculatePrice(bilingObj) {
 }
 
 //routes to redirect to user to different pages
-router.get("/", (req, res) => {
-    if (req.session?.passport?.user) {
-        return res.json({ isAuthenticated: true });
-    } else {
+router.get("/", async (req, res) => {
+    const header = req.header("Authorization");
+    if (!header) {
+        // Set HTTP status code 401 for Unauthorized
         return res.json({ isAuthenticated: false });
+    }
+    const token = header.replace("Bearer ", "");
+
+    if (!token || token == "null" || token == undefined) {
+        return res.json({ isAuthenticated: false });
+    } else {
+        return res.json({ isAuthenticated: true });
     }
 });
 
 router.get("/dashboard", isAuth, async (req, res) => {
-    return res.json({ username: req.user.displayName });
+    const token = req.header("Authorization").replace("Bearer ", "");
+    const data = await User.findOne({ githubId: token });
+    return res.json({ username: data.displayName });
 });
 
 router.get("/billingsystem", isAuth, async (req, res) => {
     try {
         let total = 0;
 
-        const billingdata = await Data.find({ githubId: req.user.githubId }).lean();
+        const token = req.header("Authorization").replace("Bearer ", "");
+        const user = await User.findOne({ githubId: token });
+        const billingdata = await Data.find({ githubId: token }).lean();
 
         for (const item of billingdata) {
             total = total + (await item).afterDiscount; //calculate total price
         }
 
         res.json({
-            username: req.user.displayName,
+            username: user.displayName,
             billingdata: billingdata,
-            id: req.user.githubId,
+            id: token,
             total: total,
         });
     } catch (err) {
@@ -87,6 +108,7 @@ router.get("/billingsystem", isAuth, async (req, res) => {
         res.json('error')
     }
 });
+
 
 router.get("/user_info", isAuth, async (req, res) => {
     try {
@@ -108,6 +130,8 @@ router.post("/add-data", isAuth, async (req, res) => {
         req.body.totalPrice = billingData.totalprice;
         req.body.discount = billingData.discount;
         req.body.afterDiscount = billingData.afterdiscount;
+        req.body.githubId = req.header("Authorization").replace("Bearer ", "");
+
         await Data.create(req.body); //add data to database
 
         return res.json(req.body);
@@ -134,7 +158,8 @@ router.put("/update_data", isAuth, async (req, res) => {
 
         return res.json({ success: true });
     } catch (err) {
-        res.json("error");
+
+        res.json('error')
     }
 });
 
@@ -143,7 +168,8 @@ router.delete("/delete_data", isAuth, async (req, res) => {
         await Data.deleteOne({ _id: req.body._id }); //delete from database based on object id
         res.redirect("/billingsystem");
     } catch (err) {
-        res.json("error");
+
+        res.json('error')
     }
 });
 

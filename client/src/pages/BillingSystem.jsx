@@ -1,13 +1,11 @@
-import React, {useEffect, useState, useRef} from "react";
-import {BillingTable} from "../components/BillingTable";
-import {checkAuthentication} from "../components/auth";
-import {NavComponent} from "../components/NavComponent";
-import {Notification} from "../components/Notification";
-import {LoginPage} from "./Login";
+import React, { useEffect, useState, useRef } from "react";
+import { BillingTable } from "../components/BillingTable";
+import { checkAuthentication } from "../components/auth";
+import { NavComponent } from "../components/NavComponent";
+import { Notification } from "../components/Notification";
 
 export const BillingSystemPage = () => {
     const [error, setError] = useState(null);
-    const [showModal, setShowModal] = useState(true);
 
     const handleNotification = (message) => {
         if (message) setError(message);
@@ -26,18 +24,25 @@ export const BillingSystemPage = () => {
     const [billingFormData, setBillingFormData] = useState(initialState);
     const [initialFormData, setInitialFormData] = useState(initialState);
     const [submitted, setSubmitted] = useState(false); // State to track submission
+    const token = localStorage.getItem("token");
     useEffect(() => {
         const fetchBillingData = async () => {
             try {
                 const isAuth = await checkAuthentication();
 
                 if (!isAuth) window.location.href = "/";
+
                 const response = await fetch(
                     `${window.ENVIRONMENT.api}/billingsystem`,
                     {
                         method: "GET",
                         mode: "cors",
-                        credentials: "include", // Ensure that credentials are included in the request
+                        credentials: "include",
+                        headers: {
+                            // Set headers as an object
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`, // Set Authorization header with the token
+                        }, // Ensure that credentials are included in the request
                     }
                 );
                 const jsonData = await response.json();
@@ -51,7 +56,9 @@ export const BillingSystemPage = () => {
         fetchBillingData();
     }, [submitted]);
 
-    const handlerUpdate = (data) => {
+    const handlerUpdate = (e, data) => {
+        e.preventDefault();
+        e.stopPropagation();
         const dt = new Date(data.purchaseDate);
         const month = dt.getMonth() + 1;
         const date = dt.getDate();
@@ -61,7 +68,6 @@ export const BillingSystemPage = () => {
             .padStart(2, "0")}`;
         setBillingFormData(data);
         setInitialFormData(data);
-
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -69,7 +75,7 @@ export const BillingSystemPage = () => {
         const data = Array.from(e.target.elements)
             .filter((input) => input.name)
             .reduce(
-                (obj, input) => Object.assign(obj, {[input.name]: input.value}),
+                (obj, input) => Object.assign(obj, { [input.name]: input.value }),
                 {}
             );
 
@@ -79,6 +85,7 @@ export const BillingSystemPage = () => {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data),
         })
@@ -90,24 +97,26 @@ export const BillingSystemPage = () => {
                 return response.json();
             })
             .then(() => {
-
+                // setMessage("We'll be in touch soon.");
+                // setStatus('success');
                 setSubmitted(!submitted);
                 console.log("success");
             })
             .catch((err) => {
                 console.log(err.toString());
-
+                // setStatus('error');
             });
     };
 
     const handleUpdate = (e) => {
         e.preventDefault();
+        e.stopPropagation();
         const finalFormEndpoint = e.target.action;
 
         const data = Array.from(e.target.elements)
             .filter((input) => input.name)
             .reduce(
-                (obj, input) => Object.assign(obj, {[input.name]: input.value}),
+                (obj, input) => Object.assign(obj, { [input.name]: input.value }),
                 {}
             );
         fetch(`${window.ENVIRONMENT.api}/update_data`, {
@@ -115,6 +124,7 @@ export const BillingSystemPage = () => {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             },
             credentials: "include",
             body: JSON.stringify(data),
@@ -127,13 +137,15 @@ export const BillingSystemPage = () => {
                 return response.json();
             })
             .then(() => {
+                // setMessage("We'll be in touch soon.");
+                // setStatus('success');
 
                 setSubmitted(!submitted);
                 formRef.current;
             })
             .catch((err) => {
                 console.log(err.toString());
-
+                // setStatus('error');
             });
     };
     const formRef = useRef(null);
@@ -155,7 +167,7 @@ export const BillingSystemPage = () => {
                                     <h2>Add Purchase Data</h2>
                                     <form onSubmit={handleSubmit} method="POST">
                                         <label htmlFor="productname">Product Name</label>
-                                        <br/>
+                                        <br />
                                         <input
                                             autoFocus="true"
                                             autoComplete="off"
@@ -165,7 +177,7 @@ export const BillingSystemPage = () => {
                                             placeholder="Enter product name"
                                             required
                                         />
-                                        <br/>
+                                        <br />
                                         <label htmlFor="purchasedate">Date Of Purchase</label>
                                         <input
                                             autoComplete="off"
@@ -174,7 +186,7 @@ export const BillingSystemPage = () => {
                                             name="purchaseDate"
                                             required
                                         />
-                                        <br/>
+                                        <br />
                                         <label htmlFor="cost">Product Cost</label>
                                         <input
                                             autoComplete="off"
@@ -184,7 +196,7 @@ export const BillingSystemPage = () => {
                                             placeholder="Enter cost for single"
                                             required
                                         />
-                                        <br/>
+                                        <br />
                                         <label htmlFor="quantity">Product Quantity</label>
                                         <input
                                             autoComplete="off"
@@ -194,9 +206,9 @@ export const BillingSystemPage = () => {
                                             placeholder="Enter quantity"
                                             required
                                         />
-                                        <br/>
+                                        <br />
                                         <label htmlFor="category">Product Category</label>
-                                        <br/>
+                                        <br />
                                         <select id="category" name="category">
                                             <option disabled selected>
                                                 Choose Category
@@ -211,9 +223,9 @@ export const BillingSystemPage = () => {
                                             </option>
                                             <option value="other">Other</option>
                                         </select>
-                                        <br/>
+                                        <br />
                                         <label htmlFor="description">Product Description</label>
-                                        <br/>
+                                        <br />
                                         <input
                                             autoComplete="off"
                                             type="text"
@@ -222,8 +234,8 @@ export const BillingSystemPage = () => {
                                             placeholder="Enter any product description"
                                             required
                                         />
-                                        <input type="hidden" value={data.id} name="githubId"/>
-                                        <br/>
+                                        <input type="hidden" value={data.id} name="githubId" />
+                                        <br />
                                         <button
                                             type="submit"
                                             id="submit"
@@ -237,29 +249,21 @@ export const BillingSystemPage = () => {
                                     </form>
                                 </div>
                                 {data.billingdata && data.billingdata.length > 0 ? (
-                                    <BillingTable data={data} handlerUpdate={handlerUpdate}/>
+                                    <BillingTable data={data} handlerUpdate={handlerUpdate} />
                                 ) : (
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="d-none">
-                                            <symbol id="info-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                                            </symbol>
-                                        </svg>
-                                        <div className="alert alert-primary d-flex align-items-center" role="alert">
-                                            <svg className="bi flex-shrink-0 me-2" role="img" aria-label="Info:">
-                                                <use xlinkHref="#info-fill"/>
-                                            </svg>
-                                            <div>
-                                                You have not created any purchase data
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div>Loading...</div>
                                 )}
                             </div>
                         </div>
                         {billingFormData && billingFormData._id && (
-                            <div className="modal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div
+                                className="modal"
+                                id="exampleModal"
+                                tabIndex="-1"
+                                role="dialog"
+                                aria-labelledby="exampleModalLabel"
+                                aria-hidden="true"
+                            >
                                 <div className="modal-dialog modal-lg" role="document">
                                     <div className="modal-content">
                                         <div className="modal-header">
@@ -270,9 +274,9 @@ export const BillingSystemPage = () => {
                                         <div className="modal-body">
                                             <div className="modal-body-form">
                                                 <form onSubmit={handleUpdate} ref={formRef}>
-                                                    <input type="hidden" name="_method" value="PUT"/>
+                                                    <input type="hidden" name="_method" value="PUT" />
                                                     <label htmlFor="updproductname">Product Name</label>
-                                                    <br/>
+                                                    <br />
                                                     <input
                                                         value={billingFormData.productName}
                                                         autoComplete="off"
@@ -288,7 +292,7 @@ export const BillingSystemPage = () => {
                                                             });
                                                         }}
                                                     />
-                                                    <br/>
+                                                    <br />
                                                     <label htmlFor="updpurchasedate">
                                                         Date Of Purchase
                                                     </label>
@@ -307,7 +311,7 @@ export const BillingSystemPage = () => {
                                                             });
                                                         }}
                                                     />
-                                                    <br/>
+                                                    <br />
                                                     <label htmlFor="updcost">Product Cost</label>
                                                     <input
                                                         value={billingFormData.cost}
@@ -324,7 +328,7 @@ export const BillingSystemPage = () => {
                                                             });
                                                         }}
                                                     />
-                                                    <br/>
+                                                    <br />
                                                     <label htmlFor="updquantity">Product Quantity</label>
                                                     <input
                                                         value={billingFormData.quantity}
@@ -341,9 +345,9 @@ export const BillingSystemPage = () => {
                                                             });
                                                         }}
                                                     />
-                                                    <br/>
+                                                    <br />
                                                     <label htmlFor="updcategory">Product Category</label>
-                                                    <br/>
+                                                    <br />
                                                     <select
                                                         value={billingFormData.category}
                                                         id="updcategory"
@@ -369,11 +373,11 @@ export const BillingSystemPage = () => {
                                                         </option>
                                                         <option value="other">Other</option>
                                                     </select>
-                                                    <br/>
+                                                    <br />
                                                     <label htmlFor="upddescription">
                                                         Product Description
                                                     </label>
-                                                    <br/>
+                                                    <br />
                                                     <input
                                                         value={billingFormData.description}
                                                         autoComplete="off"
@@ -389,7 +393,7 @@ export const BillingSystemPage = () => {
                                                             });
                                                         }}
                                                     />
-                                                    <br/>
+                                                    <br />
                                                     <input
                                                         value={billingFormData.githubId}
                                                         type="hidden"
@@ -410,18 +414,26 @@ export const BillingSystemPage = () => {
                                                         <button
                                                             type="button"
                                                             className="btn btn-secondary btn-sm"
-                                                            data-bs-toggle="modal">CANCEL</button>
+                                                            data-bs-dismiss="modal"
+                                                        >
+                                                            CANCEL
+                                                        </button>
                                                         <button
                                                             type="submit"
                                                             className="btn btn-success btn-sm"
                                                             id="updsubmit"
-                                                            data-bs-toggle="modal">
-                                                            UPDATE</button>
+                                                            data-bs-dismiss="modal"
+                                                        >
+                                                            UPDATE
+                                                        </button>
                                                         <button
                                                             type="reset"
                                                             className="btn btn-primary btn-sm"
                                                             id="reset"
-                                                            onClick={handleReset}>RESET</button>
+                                                            onClick={handleReset}
+                                                        >
+                                                            RESET
+                                                        </button>
                                                     </div>
                                                 </form>
                                             </div>

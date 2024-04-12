@@ -1,17 +1,41 @@
-import React, {useEffect, useState} from "react";
-import {checkAuthentication} from "../components/auth";
+import React, { useEffect, useState } from "react";
+import { checkAuthentication } from "../components/auth";
 
 export const DashboardPage = () => {
-    const [data, setData] = useState({username: "default"});
+    const params = new URLSearchParams(window.location.search);
+
+    // Get individual query parameters
+    const param1 = params.get("param1");
+    if(param1)localStorage.setItem('token',param1);
+    const param2 = params.get("param2");
+    // localStorage.setItem("token", param1);
+    // Do something with the parameters
+    console.log("param1:", param1);
+    console.log("param2:", param2);
+    console.log("param1", param1);
+    debugger;
+    console.log(localStorage);
+    const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
+    const userIdCookie = cookies.find((cookie) => cookie.startsWith("userId="));
+    const userId = userIdCookie ? userIdCookie.split("=")[1] : null;
+    console.log("cookies");
+    console.log(cookies);
+    if (param1) localStorage.setItem("token", param1);
+    const [data, setData] = useState({ username: "default" });
     useEffect(() => {
         const fetchData = async () => {
             const isAuth = await checkAuthentication();
-            console.log(isAuth)
+
+            const token = localStorage.getItem("token");
             if (!isAuth) window.location.href = "/";
             const response = await fetch(`${window.ENVIRONMENT.api}/dashboard`, {
                 method: "GET",
                 mode: "cors",
                 credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Specify the content type of the request body
+                }, // Ensure that credentials are included in the request
             });
             const jsonData = await response.json();
 
@@ -45,8 +69,7 @@ export const DashboardPage = () => {
                                     fill="currentColor"
                                     viewBox="0 0 16 16"
                                 >
-                                    <path
-                                        d="M1.5 0A1.5 1.5 0 0 0 0 1.5v7A1.5 1.5 0 0 0 1.5 10H6v1H1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5v-1h4.5A1.5 1.5 0 0 0 16 8.5v-7A1.5 1.5 0 0 0 14.5 0zm0 1h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5M12 12.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0m2 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0M1.5 12h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M1 14.25a.25.25 0 0 1 .25-.25h5.5a.25.25 0 1 1 0 .5h-5.5a.25.25 0 0 1-.25-.25"/>
+                                    <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v7A1.5 1.5 0 0 0 1.5 10H6v1H1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5v-1h4.5A1.5 1.5 0 0 0 16 8.5v-7A1.5 1.5 0 0 0 14.5 0zm0 1h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5M12 12.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0m2 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0M1.5 12h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M1 14.25a.25.25 0 0 1 .25-.25h5.5a.25.25 0 1 1 0 .5h-5.5a.25.25 0 0 1-.25-.25" />
                                 </svg>
                                 <a href="/billingsystem">Go to Billing System</a>
                             </div>
@@ -58,10 +81,8 @@ export const DashboardPage = () => {
                                     fill="currentColor"
                                     viewBox="0 0 16 16"
                                 >
-                                    <path
-                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                                    <path
-                                        d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8m0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"/>
+                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
+                                    <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8m0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5" />
                                 </svg>
                                 <a href="/instructions">Go to Instructions</a>
                             </div>
@@ -73,7 +94,7 @@ export const DashboardPage = () => {
                                     fill="currentColor"
                                     viewBox="0 0 16 16"
                                 >
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                                     <path
                                         fillRule="evenodd"
                                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"

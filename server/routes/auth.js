@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const Data = require("../models/Data");
+const Session = require("../models/Session");
+const cookie = require("cookie-parser");
 
 //routes for GitHub strategy
 // Route to initiate the GitHub OAuth flow
@@ -11,8 +14,11 @@ router.get("/github", (req, res) => {
         "?client_id=" +
         process.env.GITHUB_ID +
         "&redirect_uri=" +
-        encodeURIComponent(`${process.env.SELF_REFERENCE_URL}/auth/github/callback`) +
+        encodeURIComponent(
+            `${process.env.SELF_REFERENCE_URL}/auth/github/callback`
+        ) +
         "&scope=profile";
+
     res.json({ redirectUrl: url });
 });
 
@@ -20,14 +26,17 @@ router.get("/github", (req, res) => {
 router.get(
     "/github/callback",
     passport.authenticate("github", { failureRedirect: "/" }),
-    (req, res) => {
-        // Successful authentication, redirect home or to dashboard
-
-        res.redirect(`${process.env.REACT_HOST}/dashboard`);
+    async (req, res) => {
+        console.log("cooking", req.user.githubId);
+        res.set("Set-Cookie", `userId=${req.user.githubId}; Path=/;`);
+        res.redirect(
+            `${process.env.REACT_HOST}/dashboard?param1=${req.user.githubId}`
+        );
     }
 );
 
-router.post("/logout", (req, res, next) => {
+router.post("/logout", async (req, res, next) => {
+    res.clearCookie("userId");
     req.logout(function (err) {
         if (err) {
             return next(err);
