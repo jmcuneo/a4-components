@@ -1,0 +1,42 @@
+{
+  "name": "a3-persistence",
+  "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template ===",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "build:css": "tailwindcss -i src/public/styles.css -o src/public/css/main.css",
+    "postinstall": "npm run build:css",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --ssr src/app.js --outDir dist/server",
+    "build": "npm run build:css && npm run build:client && npm run build:server"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mime": "^2.4.4",
+    "mongoose": "^8.3.0",
+    "passport": "^0.7.0",
+    "passport-github": "^1.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.3",
+    "vite-express": "^0.16.0"
+  },
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bmlui/a3-persistence.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bmlui/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/bmlui/a3-persistence#readme",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.2.8"
+  }
+}
