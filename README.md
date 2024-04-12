@@ -1,31 +1,9 @@
-Assignment 4 - Components
-===
+## React Workout Calorie Calculator
 
-For this assignment you will re-implement the client side portion of *either* A2 or A3 using either React or Svelte components. If you choose A3 you only need to use components for the data display / updating; you can leave your login UI as is.
+Klaudio Fusha
 
-[Svelte Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.svelte.md)  
-[React Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.react.md)  
+https://a4-klaudiofusha.onrender.com/
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku, etc.). However, you must include all files in your GitHub repo so that the course staff can view them.
+My project for this assignment is a React version of the workout calorie calculator that I used in A2. This app does not use any of the MongoDB server-side code featured in A3. Hence, it uses a simple express server that is similar to the one used in A2. As in previous versions of this application, users have the ability to input a workout starting time and ending time, type, and intensity to get an estimate of how many calories they have burned. Once the form is submitted, data will be dynamically displayed in a results table at the bottom of the page. In that table, users have the ability to view, edit, and delete workout data using respective buttons attached to each row containing data. Data is preserved on the client-side using react functionality.
 
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a4-firstname-lastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a4-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a4-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+Overall, I would say that using React instead of plain JavaScript definitely hindered the development experience. Developing in React is a bit more complicated, and therefore you have to familiarize yourself with things like syntax and getting the application to run. Additionally, hosting my app was a very difficult process due to Glitch itself having issues with the react build scripts, prompting me to switch over to Render. Having worked with react before in CS 3733, it can become more intricate depending on the scale of your project. However, it isn't terrible once you get the hang of it.
