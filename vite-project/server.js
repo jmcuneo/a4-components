@@ -9,38 +9,17 @@ const appdata = [];
 const suggestdata = [];
 
 app.post("/refresh", express.json(), async (req, res) => {
-  let bothArrays = {
-    appdata: appdata,
-    suggestdata: suggestdata
-  }
-  console.log("server bothArrays: ", bothArrays);
-  //res.send(JSON.stringify(bothArrays));
-  //res.send(bothArrays)
-  res.json(bothArrays);
-  res.send(res.json);
+  console.log("appdata", appdata);
+  res.send(JSON.stringify(appdata));
 });
 
 
 app.post("/submit", express.json(), async (req, res) => {
   console.log(req.body);
   let data = req.body;
-  console.log(data);
-  for(let i = 0; i < appdata.length; i++){
-    if(data.item == appdata[i].item){
-      console.log("item already logged!");
-      res.send(JSON.stringify("Item already logged!"));
-      return;
-    } 
-  }
-  var entry = {
-    name: data.name,
-    item: data.item,
-    price: data.price,
-    qty: data.qty, 
-    cost: data.price * data.qty
-  };
-  appdata.push(entry);
-  console.log("req: ", entry);
+  console.log("submit req.body: ", data);
+
+  appdata.push(data);
   
   let bothArrays = {
     appdata: appdata,
@@ -52,8 +31,10 @@ app.post("/submit", express.json(), async (req, res) => {
 
 app.post("/remove", express.json(), async (req, res) => {
   //get data to remove
-
+  
   const indexToRemove = req.body.entryIndex;
+  console.log("remove index: ", indexToRemove);
+
   // Check if indexToRemove is valid/
 
   if (
@@ -63,11 +44,7 @@ app.post("/remove", express.json(), async (req, res) => {
   ) {
     return res.status(400).send(JSON.stringify("Invalid index"));
   }
-
-  //check if the user has the authority to remove the item
-
-
-    console.log(result);
+    
     appdata.splice(indexToRemove, 1); // Remove the entry from the array
     res.send(appdata);
   
