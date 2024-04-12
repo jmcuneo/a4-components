@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8" />
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
+    <!-- get rid of favicon error -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mandali&family=Noto+Sans+Soyombo&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+      <h1>Patient Application Form</h1>
+      <h2>Very Real Medical Center, Worcester Massachusetts</h2>
+    </header>
+
+    <form id="applicationForm">
+      <div>
+        <h3>Patient's Basic Information</h3>
+        <label for="firstName">First Name:</label>
+        <!--derived field: full name-->
+        <input class="longInput" type="text" id="firstName" placeholder="First Name" required="required" />
+        <label for="lastName">Last Name:</label>
+        <input class="longInput" type="text" id="lastName" placeholder="First Name" required="required" />
+      </div>
+      <div>
+        <label for="dob">Date of birth:</label>
+        <!--derived field: age-->
+        <input class="longInput" type="date" id="dob" required="required" />
+        <label for="sex">Sex on Record:</label>
+        <input class="shortInput" list="sexMarkers" id="sex" required="required" />
+        <datalist id="sexMarkers">
+          <option value="F"></option>
+          <option value="M"></option>
+          <option value="X"></option>
+        </datalist>
+      </div>
+      <div>
+        <h3>Patient Contact Information</h3>
+        <label for="email">Email:</label>
+        <input class="longInput" type="email" id="email" placeholder="vrmc@mail.com" required="required" />
+        <label for="phone">Phone Number:</label>
+        <input class="longInput" type="tel" id="phone" placeholder="1235553210" required="required" />
+      </div>
+      <div>
+        <input class="btn" type="submit" id="submit" />
+      </div>
+    </form>
+
+    <table id="applicationTable"></table>
+  </body>
+</html>
