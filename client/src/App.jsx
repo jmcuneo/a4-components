@@ -8,7 +8,7 @@ import {ErrorPage} from "./pages/Error.jsx"
 import {UserPage} from "./pages/User.jsx"
 import {InstructionsPage} from "./pages/instructions.jsx"
 import {Logout} from "./components/Logout.jsx";
-window.ENVIRONMENT = {api:'http://localhost:3000'}
+window.ENVIRONMENT = {api:'https://a4-saitejasunku-server.onrender.com'}
 function App() {
 
   return (
