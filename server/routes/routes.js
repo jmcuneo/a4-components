@@ -112,7 +112,8 @@ router.get("/billingsystem", isAuth, async (req, res) => {
 
 router.get("/user_info", isAuth, async (req, res) => {
     try {
-        const userdata = await User.find({ githubId: req.user.githubId }).lean();
+        const token = req.header("Authorization").replace("Bearer ", "");
+        const userdata = await User.find({ githubId: token }).lean();
         return res.json(userdata);
     } catch (err) {
         return res.json("error");
