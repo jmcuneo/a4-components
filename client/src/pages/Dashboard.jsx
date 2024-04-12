@@ -6,6 +6,7 @@ export const DashboardPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const isAuth = await checkAuthentication();
+            console.log(isAuth)
             if (!isAuth) window.location.href = "/";
             const response = await fetch(`${window.ENVIRONMENT.api}/dashboard`, {
                 method: "GET",

@@ -7,6 +7,7 @@ export const checkAuthentication = async () => {
     });
 
     const responseJSON = await response.json();
+    console.log(responseJSON)
     if (response.ok && responseJSON.isAuthenticated) {
       return true;
     } else {
