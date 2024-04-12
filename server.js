@@ -10,7 +10,7 @@ require('dotenv').config();
 app.set("view engine", "ejs");
 var access_token = "";
 
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
+const uri = `mongodb+srv://Tester:Password@edisonzhang.peneizq.mongodb.net/?retryWrites=true&w=majority&appName=EdisonZhang`
 
 const client = new MongoClient(uri, {
     serverApi: {
