@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "create-vite": "^5.2.3",
+    "vite-express": "^0.16.0"
+  }
+}
