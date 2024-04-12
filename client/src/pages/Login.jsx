@@ -6,32 +6,25 @@ export const LoginPage = () => {
     const handleClick = async () => {
         const response = await fetch(`${window.ENVIRONMENT.api}/auth/github`, {
             method: "GET",
-            mode: "cors", // Ensure that CORS is enabled on your Express server
-            credentials: "include", // Include credentials such as cookies
+            mode: "cors",
+            credentials: "include",
         });
         // Ensure that the response status is OK before proceeding
         if (response.ok) {
-            // Parse the response body as JSON
+            // Parsing the response body as JSON
             const responseData = await response.json();
 
-            // Extract the redirectUrl from the response data
+            // Extracting the redirectUrl from the response data
             const redirectUrl = responseData.redirectUrl;
 
-            // Redirect the user to the GitHub OAuth authorization page
+            // Redirecting the user to the GitHub OAuth authorization page
             window.location.href = redirectUrl;
         } else {
-            // Handle error response
+            // Handling error response
             console.error("Failed to initiate OAuth flow:", response.statusText);
         }
     };
 
-    // useEffect(() => {
-    //   const checkAuth = async () => {
-    //     const isAuth = await checkAuthentication();
-    //     setAuth(isAuth);
-    //   };
-    //   checkAuth();
-    // });snt
 
     const [auth, setAuth] = useState(false);
     useEffect(() => {

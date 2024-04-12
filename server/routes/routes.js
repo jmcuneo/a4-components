@@ -113,7 +113,7 @@ router.get("/billingsystem", isAuth, async (req, res) => {
 router.get("/user_info", isAuth, async (req, res) => {
     try {
         const token = req.header("Authorization").replace("Bearer ", "");
-        const userdata = await User.find({ githubId: token }).lean();
+        const userdata = await User.findOne({ githubId: token }).lean();
         return res.json(userdata);
     } catch (err) {
         return res.json("error");
@@ -122,7 +122,7 @@ router.get("/user_info", isAuth, async (req, res) => {
 
 router.post("/add-data", isAuth, async (req, res) => {
     try {
-        // req.body.user = req.user.id
+
         let bilingObj = {
             cost: req.body.cost,
             quantity: req.body.quantity,

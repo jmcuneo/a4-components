@@ -8,18 +8,11 @@ export const DashboardPage = () => {
     const param1 = params.get("param1");
     if(param1)localStorage.setItem('token',param1);
     const param2 = params.get("param2");
-    // localStorage.setItem("token", param1);
-    // Do something with the parameters
-    console.log("param1:", param1);
-    console.log("param2:", param2);
-    console.log("param1", param1);
-    debugger;
-    console.log(localStorage);
+
     const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
     const userIdCookie = cookies.find((cookie) => cookie.startsWith("userId="));
     const userId = userIdCookie ? userIdCookie.split("=")[1] : null;
-    console.log("cookies");
-    console.log(cookies);
+
     if (param1) localStorage.setItem("token", param1);
     const [data, setData] = useState({ username: "default" });
     useEffect(() => {
@@ -34,8 +27,8 @@ export const DashboardPage = () => {
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`, // Specify the content type of the request body
-                }, // Ensure that credentials are included in the request
+                    Authorization: `Bearer ${token}`,
+                },
             });
             const jsonData = await response.json();
 

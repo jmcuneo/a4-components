@@ -10,7 +10,6 @@ const GitHubStrategy = require('passport-github').Strategy;
 const cors = require('cors');
 
 //load the .env file in config, which contains personal information for connections
-//dotenv.config({path: './config/.env'})
 const path4=path.join(__dirname, "config", ".env")
 dotenv.config({ path:path4})
 

@@ -11,15 +11,13 @@ export const UserPage = () => {
                 credentials: "include",
                 headers: {
                     Authorization: `Bearer ${token}`,
-                }, // Ensure that credentials are included in the request
+                },
             })
                 .then((response) => response.json())
                 .then((json) => {
                     setData(json);
                 });
-            // const jsonData = await response.json();
-            //
-            // setData(jsonData);
+
         };
 
         fetchUserData();
@@ -103,7 +101,7 @@ export const UserPage = () => {
             </nav>
 
             <div className="apply-translation">
-                {/*{{#each userdata}}*/}
+
                 {data.map((dt, index) => (
                     <div key={index} className="dashboard">
                         <h1>User Information</h1>
@@ -153,7 +151,7 @@ export const UserPage = () => {
                         />
                     </div>
                 ))}
-                {/*{{/each}}*/}
+
             </div>
         </>
     );
