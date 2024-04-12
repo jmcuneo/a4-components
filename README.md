@@ -1,31 +1,12 @@
-Assignment 4 - Components
-===
 
-For this assignment you will re-implement the client side portion of *either* A2 or A3 using either React or Svelte components. If you choose A3 you only need to use components for the data display / updating; you can leave your login UI as is.
+## Dov Ushman https://a4-dovushman-95c3f39c8821.herokuapp.com/
+## A4 - Class Directory
 
-[Svelte Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.svelte.md)  
-[React Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.react.md)  
+For this proect, I adjusted my A2 to use react components. I reformated my HTML to be in a return of the app.js file where my main doe is within a component. I also updated my server to use express. 
 
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku, etc.). However, you must include all files in your GitHub repo so that the course staff can view them.
+To breakdown the changes:
 
-Deliverables
----
+* React 
+ Due to using react, I ran into some issues when trying to run my program. The issue was, running locally was fine, but I had to run the server and client side code seperately but figuring out how I could link these to run at the same itme was challanging. To get this to work, I had to use new packages they I ran into troubles with. However, I believe I just set this up imporperly since it was being built off of an old project since when I had made a react app in the past, I was able to run both the client and server at the same time. 
+    * Overall I believe I prefer working with React since I like having the html linked to the javascript within the same file.
 
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a4-firstname-lastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a4-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your hosting link e.g. http://a4-charlieroberts.glitch.me
-
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
