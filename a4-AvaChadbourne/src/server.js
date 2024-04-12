@@ -24,7 +24,7 @@ app.get( '/read', ( req, res ) => {
 app.post( '/add', ( req, res) => {
   let data = req.body
   // console.log(data)
-
+  debugger;
   let output = eval(data.val1 + data.op + data.val2) //Get correct answer
   let guess = false
   if(data.guess == output){ //If user guessed, evaluate that guess 
@@ -35,6 +35,8 @@ app.post( '/add', ( req, res) => {
 
   let newData = {val1: parseInt(data.val1), val2: parseInt(data.val2), op: data.op, output, guess}
   appdata.push( newData )
+  console.log("Sending appdata: " + JSON.stringify(appdata))
+
   res.json( appdata )
 })
 

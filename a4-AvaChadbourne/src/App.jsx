@@ -22,7 +22,7 @@ const Entry = entry => {
         <button onClick={ e => entry.del(entry.id, e)} className="deleteButton" id={entry.id}>Delete</button>
       </td>
       <td>
-        <button onClick={ e => entry.mod(entry.id, e)} className="modifyButton" id={entry.id}>Delete</button>
+        <button onClick={ e => entry.mod(entry.id, e)} className="modButton" id={entry.id}>Modify</button>
       </td>
     </tr>    
   )
@@ -49,7 +49,7 @@ const App = () => {
     return null
   }
 
-  function add(e) {
+  async function add(e) {
     e.preventDefault
     const val1 = document.querySelector( "#firstVal" ), //First number (required)
           val2 = document.querySelector( "#secVal" ), //Second value (required)
@@ -58,15 +58,20 @@ const App = () => {
           json = { val1: val1.value, val2: val2.value, op: op, guess: guess.value},
           body = JSON.stringify( json )
 
-    fetch( '/add', {
-      method:'POST',
-      body: body,
-      headers: { 'Content-Type': 'application/json' }
-    }).then( response => response.json() )
-        .then( json => {  
-          setTable( json )
-          console.log("Content added: " + JSON.stringify(json))
-        })
+    const response = await fetch( '/add', {
+        method:'POST',
+        body: body,
+        headers: { 'Content-Type': 'application/json' }
+      })
+    
+    // .then( response => response.json() )
+    //     .then( json => {  
+    //       setTable( json )
+    //       console.log("Content added: " + JSON.stringify(json))
+    //     })
+
+    const resp = await response.json()
+    setTable( resp )
   }
 
   function remove(id, e) {
@@ -82,17 +87,17 @@ const App = () => {
         })
   }
   
-  // useEffect(()=> {
-  //   fetch( '/read' ).then( response => response.json() )
-  //     .then( json => {  
-  //         setTable( json ) 
-  //         console.log("Page read, table set: " + JSON.stringify(json))          
-  //     })
-  // }, [entries] )
+  useEffect(()=> {
+    fetch( '/read' ).then( response => response.json() )
+      .then( json => {  
+          setTable( json ) 
+          console.log("Page read, table set: " + JSON.stringify(json))          
+      })
+  }, [] )
     
-  // useEffect( ()=> {
-  //   document.title = `The Worst Calc`
-  // })
+  useEffect( ()=> {
+    document.title = `The Worst Calc`
+  }, [])
 
   return (
     <div className="App">
@@ -148,8 +153,8 @@ const App = () => {
                                               op={entry.op} 
                                               output={entry.output}  
                                               guess={entry.guess}
-                                              del={remove()}
-                                              mod={remove()}  /> ) }
+                                              del={remove}
+                                              mod={remove}  /> ) }
           </tbody>
         </table>
       </div>
