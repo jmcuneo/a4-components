@@ -40,21 +40,6 @@ function App() {
     console.log(currTable.slice())
   }
 
-
-  //get data returns the data currently saved in the server
-  // const getData = async function () {
-
-  //   const response = await fetch("/data", {
-  //     method: "GET"
-  //   })
-  //     .then((response) => response.json())
-  //     .then(jsonData => {
-  //       return jsonData;
-  //     });
-
-  //   console.log(response)
-  // }
-
   //remove reads the id in the remove text bo and sends a delete request to the server
   const remove = async function (event) {
     event.preventDefault()
