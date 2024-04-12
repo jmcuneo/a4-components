@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-const Todo = props => (
-  <li>{props.name} : 
-    <input 
-      type="checkbox" 
-      defaultChecked={props.completed} 
-      onChange={ e => props.onclick( props.name, e.target.checked ) }/>
-  </li>
-)
-
 const Entry = entry => {
   function handleGuess(guess) {
     if (guess != null) {
@@ -108,12 +99,6 @@ const App = () => {
         body: body,
         headers: { 'Content-Type': 'application/json' }
       })
-    
-    // .then( response => response.json() )
-    //     .then( json => {  
-    //       setTable( json )
-    //       console.log("Content added: " + JSON.stringify(json))
-    //     })
 
     const resp = await response.json()
     setTable( resp )
@@ -241,10 +226,3 @@ const App = () => {
 }
 
 export default App   
-
-{/* <input type='text' /><button onClick={ e => add()}>add</button>
-      <ul>
-        { todos.map( (todo,i) => <Todo key={i} name={todo.name} completed={todo.completed} onclick={ toggle } /> ) }
-     </ul> 
-    </div>
-    </input> */}
