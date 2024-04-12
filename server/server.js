@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.json())
 app.use(
     cors({
-        origin: "http://localhost:5173", // React app's origin
+        origin: process.env.REACT_HOST, // React app's origin
         credentials: true,
     })
 )
