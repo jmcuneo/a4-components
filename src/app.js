@@ -53,6 +53,6 @@ app.use(express.json());
 app.use('/api/login', loginRoutes);
 app.use('/api', apiRoutes);
 
-
+ViteExpress.init( app, { root: __dirname } );
 
 ViteExpress.listen( app, 3000 );
