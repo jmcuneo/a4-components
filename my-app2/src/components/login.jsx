@@ -9,7 +9,7 @@ const Login = () => {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
       
-        fetch('http://localhost:5000/login', {
+        fetch('https://assignment4ethanmoynihan-927c342a5e06.herokuapp.com/login', {
           method: 'POST',
           body: JSON.stringify({username: username, password: password})
         }).then(response => {
@@ -47,7 +47,7 @@ const Login = () => {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
       
-        fetch('http://localhost:5000/createAccount', {
+        fetch('https://assignment4ethanmoynihan-927c342a5e06.herokuapp.com/createAccount', {
           method: 'POST',
           body: JSON.stringify({username: username, password: password})
         }).then(response => {
