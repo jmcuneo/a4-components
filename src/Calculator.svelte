@@ -34,12 +34,3 @@
     };
 </script>
 
-<form on:submit|preventDefault={addition}>
-    <label for="num1">First Number:</label>
-    <input type="number" bind:value={num1} />
-
-    <label for="num2">Second Number:</label>
-    <input type="number" bind:value={num2} />
-
-    <button type="submit">Addition</button>
-</form>
