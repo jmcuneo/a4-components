@@ -23,7 +23,7 @@
             cellIndex.textContent = (index + 1);            //set index number to the element in the html
 
             const cellResult = document.createElement('td');  //define result
-            cellResult.textContent = result.result;           //fetch the result from each array entry and set it to the element content
+            cellResult.textContent = result;
 
             row.appendChild(cellIndex);     //add the of the index cell to the row
             row.appendChild(cellResult);    //add the of the result cell to the row
@@ -32,7 +32,7 @@
     }
     }
   
-    //onMount(updateTable);
+    onMount(updateTable);
 
     const addition = async function(event) {
         event.preventDefault();
@@ -89,10 +89,10 @@
       {#each previousResultsClient as result, index}
         <tr>
           <td>{index + 1}</td>
-          <td>{previousResultsClient}</td>
+          <td>{result}</td>
         </tr>
       {/each}
-    </tbody>
+    </tbody>    
   </table>
 </main>
 
