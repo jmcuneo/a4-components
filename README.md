@@ -1,3 +1,5 @@
+READ BELOW FIRST FOR CONTEXT
+
 (https://a4-jacobsilvester.glitch.me/
 ---
 
