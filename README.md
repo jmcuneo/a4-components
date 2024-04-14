@@ -1,31 +1,18 @@
-Assignment 4 - Components
-===
+READ BELOW FIRST FOR CONTEXT
 
-For this assignment you will re-implement the client side portion of *either* A2 or A3 using either React or Svelte components. If you choose A3 you only need to use components for the data display / updating; you can leave your login UI as is.
-
-[Svelte Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.svelte.md)  
-[React Tutorial](https://github.com/jmcuneo/cs4241-guides/blob/master/using.react.md)  
-
-This project can be implemented on any hosting service (Glitch, DigitalOcean, Heroku, etc.). However, you must include all files in your GitHub repo so that the course staff can view them.
-
-Deliverables
+(https://a4-jacobsilvester.glitch.me/
 ---
 
-Do the following to complete this assignment:
+## Text Combiner Application V2
+My website is very simple. I simply have two input boxes which take in any string. Upon clicking the "Combine!" button, the two strings are concatenated together with an added ' ' between them. The number of combined characters are then counted and logged as well. These two things, as well as the entry number, are then reported out in a table format.
 
-1. Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page on Glitch/Heroku/etc., it displays correctly.
-4. Ensure that your project has the proper naming scheme `a4-firstname-lastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. Be sure to add *all* project files.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a4-firstname-lastname`.
+I didn't change much between 2 and 3, only the login functionality was implemented. I however chose to remake A2 just for simplicity. I assumed using the local server would be easier.
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
+For the purposes of this assignment, I definitely struggled both with timing but also understanding how React is used. In terms of the HTML, that didn't seem to be an issue. The webpage loads properly outside of a misaligned title, but that really wasn't too big of an issue for me. 
 
-## Your Web Application Title
+The trouble is that the functionality became a major roadblock. To be blunt there is no functionality, and this is where the time aspect comes into play. Using some debugging strategies, I can see that the issue is the communication between the client and server. For example, when the submit button is pressed, the error I receive is that /add isn't found in the server. And I'm not quite sure why that is.
 
-your hosting link e.g. http://a4-charlieroberts.glitch.me
+My process in refactoring the app was to use function App(), put the functions I originally had in this new function, and then have it return the appropriate html for rendering. I know that the rendering must work, but the functions don't. I was operating under the assumption the server code wouldn't really be changed since React is for the front-end. 
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
-
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+Ultimately, I could clearly only achieve partial functionality, so I fully accept that the grade the project warrants is probably relatively low. I definitely can see why something like React could be beneficial to use. This could be a project I return to and try and solve when I have more time, or maybe try a different component.
+)
