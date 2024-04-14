@@ -61,9 +61,9 @@ const handlePost = function( request, response ) {    //when a POST request is p
     if(operation === "addition"){                //addition functionality
       const result = (num1 + num2).toFixed(2)    //add the two imputted numbers together + truncates
 
-      addPreviousResults({ result: result })     //add this result to the array of previous results
+      previousResults.push(result);                       //add result to the array
       response.writeHead(200, { 'Content-Type': 'application/json' })
-      response.end(JSON.stringify({ result: result }))        //send the result to the client
+      response.end(JSON.stringify({ result: result, previousResults: previousResults}))        //send the result to the client
     }
   })
 }
@@ -89,14 +89,6 @@ const sendFile = function( response, filename ) {
      }
    })
 }
-
-//function to add a given result to the previous results array
-const addPreviousResults = function (result) {        //pass the result
-  previousResults.push(result);                       //add result to the array
-  if (previousResults.length > 50) {                  //limit array length to 50 previous entries   
-      previousResults.pop();                          //if over 50, pop the oldest entry
-  }
-};
 
 server.listen( process.env.PORT || port )             //declare the port
 console.log(`Server running at http://localhost:${port}/`);
