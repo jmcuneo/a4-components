@@ -2,40 +2,37 @@
   import { onMount, setContext } from "svelte";
   import { writable } from 'svelte/store';
 
-  const previousResults = writable([]);
+  var previousResultsClient = writable([]);
 
   let num1 = 0;
   let num2 = 0;
-  let result = ''; 
+  let result = ''
 
   //function to update the table to reflect the fetch from the server side array
   const updateTable = async function() {          
     const response = await fetch("http://localhost:3001/getPreviousResults");    //fetch the array
         if (response.ok) {        //if array can be accessed
-        const previousResults = await response.json();      // array of previous results              
+        const previousResults = await response.json();      // array of previous results 
+        
+        const tbody = document.querySelector('tbody'); // Get the table body element
+        tbody.innerHTML = '';
+
         previousResults.forEach((result, index) => {        //loop through the fetched array
             const row = document.createElement('tr');       //define row
             const cellIndex = document.createElement('td'); //define index
             cellIndex.textContent = (index + 1);            //set index number to the element in the html
+
             const cellResult = document.createElement('td');  //define result
             cellResult.textContent = result.result;           //fetch the result from each array entry and set it to the element content
 
-            const cellDelete = document.createElement('td');            //define the cell for delete button
-            const deleteButton = document.createElement('button');      // create the delete button
-            deleteButton.textContent = 'Delete';                        //"delete" text inside of the button
-            deleteButton.addEventListener('click', function() {         //create an event handler for when the button is clicked that links to the deleteResult() function above
-                deleteResult(index);
-            });
-            cellDelete.appendChild(deleteButton);                       //add the delete button to the cell for delete button
-
             row.appendChild(cellIndex);     //add the of the index cell to the row
             row.appendChild(cellResult);    //add the of the result cell to the row
-            row.appendChild(cellDelete);    //add the of the delete cell to the row
+            tbody.appendChild(row)
         });
     }
     }
   
-    onMount(updateTable);
+    //onMount(updateTable);
 
     const addition = async function(event) {
         event.preventDefault();
@@ -57,14 +54,14 @@
             }
 
             const responseData = await response.json();
-            result = responseData.result; // Update the result variable with the response from the server
-            previousResults.set(responseData.previousResults);
+            result = responseData.result
+            previousResultsClient.set(responseData.previousResults); // Update the store with the array of previous results
             updateTable();
         } catch (error) {
             console.error('Error fetching addition operation:', error);
         }
     };
-    setContext('previousResults', previousResults);
+    setContext('previousResults', previousResultsClient);
 
 </script>
 
@@ -89,10 +86,10 @@
       </tr>
     </thead>
     <tbody>
-      {#each previousResults as result, index}
+      {#each previousResultsClient as result, index}
         <tr>
           <td>{index + 1}</td>
-          <td>{result}</td>
+          <td>{previousResultsClient}</td>
         </tr>
       {/each}
     </tbody>
@@ -102,4 +99,3 @@
 <style>
   @import './styles.css';
 </style>
-
