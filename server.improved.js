@@ -65,6 +65,34 @@ const handlePost = function( request, response ) {    //when a POST request is p
       response.writeHead(200, { 'Content-Type': 'application/json' })
       response.end(JSON.stringify({ result: result, previousResults: previousResults}))        //send the result to the client
     }
+    else if(operation === "subtraction"){
+    const result = (num1 - num2).toFixed(2)    //subtract the two imputted numbers together + truncates
+
+    previousResults.push(result);                       //subtract result to the array
+    response.writeHead(200, { 'Content-Type': 'application/json' })
+    response.end(JSON.stringify({ result: result, previousResults: previousResults}))        //send the result to the client
+    }
+    else if(operation === "multiplication"){
+        const result = (num1 * num2).toFixed(2)    //multiply the two imputted numbers together + truncates
+    
+        previousResults.push(result);                       //multiply result to the array
+        response.writeHead(200, { 'Content-Type': 'application/json' })
+        response.end(JSON.stringify({ result: result, previousResults: previousResults}))        //send the result to the client
+    }
+    else if(operation === "division"){
+        const result = (num1 / num2).toFixed(2)    //divide the two imputted numbers together + truncates
+    
+        previousResults.push(result);                       //divide result to the array
+        response.writeHead(200, { 'Content-Type': 'application/json' })
+        response.end(JSON.stringify({ result: result, previousResults: previousResults}))        //send the result to the client
+    }
+    else if (operation === "deleteResult"){       //in the case that the client wants to delete an entry in the previous results array
+        if (index >= 0 && index < previousResults.length) {         //make sure the index is valid and not out of bounds
+          previousResults.splice(index, 1); // Delete the result at the specified index
+          response.writeHead(200, { "Content-Type": "text/plain" });        
+          response.end("Result deleted.");          //send a message back that it worked
+        } 
+    }
   })
 }
 
