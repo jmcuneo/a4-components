@@ -31,16 +31,23 @@
             deleteButton.addEventListener('click', () => deleteResult(index)); // add event handler to go to the deleteResult function
             deleteButtonCell.appendChild(deleteButton); //map button to the cell
 
+            const editButtonCell = document.createElement('td'); // define delete button cell
+            const editButton = document.createElement('button'); // create delete button
+            editButton.textContent = 'Edit';        //add text to the button
+            editButton.addEventListener('click', () => editResult(index)); // add event handler to go to the deleteResult function
+            editButtonCell.appendChild(editButton); //map button to the cell
+
             row.appendChild(cellIndex);     //add the of the index cell to the row
             row.appendChild(cellResult);    //add the of the result cell to the row
-            row.appendChild(deleteButtonCell)
-            tbody.appendChild(row)
+            row.appendChild(deleteButtonCell);    //add the cell for the delete button
+            row.appendChild(editButtonCell);      //add the cell for the edit button
+            tbody.appendChild(row);           //add the row to thte table
         });
     }
     }
   
-    onMount(updateTable);
-
+    onMount(updateTable);     //update the table
+  
     const addition = async function(event) {
         event.preventDefault();
 
@@ -153,7 +160,7 @@
         }
     };
 
-    //function to delete a given entry in the server array with the previous results
+  //function to delete a given entry in the server array with the previous results
   const deleteResult = async function (index) {
     const operation = 'deleteResult'              //define the operation that is referenced on the server side
     const response = await fetch("http://localhost:3001/deleteResult", {           //fetch on the server side
@@ -163,6 +170,16 @@
     updateTable(); // update the table 
   };
 
+  //function to delete a given entry in the server array with the previous results
+  const editResult = async function (index) {
+    const newValue = prompt("Enter the new value:"); // Prompt the user for the new value
+    const operation = 'editResult'              //define the operation that is referenced on the server side
+    const response = await fetch("http://localhost:3001/editResult", {           //fetch on the server side
+        method: "POST",
+        body: JSON.stringify({ operation: operation, index: index, newValue: newValue })      //pass through, the defined operation and the index in the array that needs to be deleted
+    });
+    updateTable(); // update the table 
+  };
 
   setContext('previousResults', previousResultsClient);
 
@@ -198,6 +215,9 @@
           <td>{result}</td>
           <td>
             <button on:click={deleteResult(index)}>Delete</button>
+          </td>
+          <td>
+            <button on:click={() => editResult(index)}>Edit</button>
           </td>
         </tr>
       {/each}

@@ -57,6 +57,7 @@ const handlePost = function( request, response ) {    //when a POST request is p
     num1 = parseFloat(clientData.num1),       //extracting the first number from clientData
     num2 = parseFloat(clientData.num2)        //extracting the second number from clientData
     index = parseInt(clientData.index)        //extracting the index from clientdata for the delete result in array case
+    newValue = parseInt(clientData.newValue)  //extracting the replacement value for editing the current array
 
     if(operation === "addition"){                //addition functionality
       const result = (num1 + num2).toFixed(2)    //add the two imputted numbers together + truncates
@@ -89,6 +90,13 @@ const handlePost = function( request, response ) {    //when a POST request is p
     else if (operation === "deleteResult"){       //in the case that the client wants to delete an entry in the previous results array
         if (index >= 0 && index < previousResults.length) {         //make sure the index is valid and not out of bounds
           previousResults.splice(index, 1); // Delete the result at the specified index
+          response.writeHead(200, { "Content-Type": "text/plain" });        
+          response.end("Result deleted.");          //send a message back that it worked
+        } 
+    }
+    else if (operation === "editResult"){       //in the case that the client wants to edit an entry in the previous results array
+        if (index >= 0 && index < previousResults.length) {         //make sure the index is valid and not out of bounds
+          previousResults[index] = newValue;
           response.writeHead(200, { "Content-Type": "text/plain" });        
           response.end("Result deleted.");          //send a message back that it worked
         } 
