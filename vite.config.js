@@ -6,19 +6,19 @@ export default defineConfig({
   server: {
     proxy: {
       "/submit": {
-        target: "http://localhost:3009",
+        target: "http://localhost:3000",
         changeOrigin: true,
       },
       "/delete": {
-        target: "http://localhost:3009",
+        target: "http://localhost:3000",
         changeOrigin: true,
       },
       "/edit": {
-        target: "http://localhost:3009",
+        target: "http://localhost:3000",
         changeOrigin: true,
       },
       "/get-tasks": {
-        target: "http://localhost:3009",
+        target: "http://localhost:3000",
         changeOrigin: true,
       },
     },
